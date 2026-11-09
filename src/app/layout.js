@@ -17,7 +17,9 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#98482A",
+  // Safari's bars: the clay as it looks on the page, with its texture and shading, measured
+  // from an iPhone screenshot (midway between the page's lighter centre and darker edges)
+  themeColor: "#92482b",
   colorScheme: "only light",
   viewportFit: "cover",
 };

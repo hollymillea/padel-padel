@@ -50,49 +50,6 @@ html {
   color-scheme: only light;
 }
 
-/* iOS 26 Safari colours its status bar from the page content beneath it, so on phones a clay
-   band sits under it. The photo runs to the bottom of the screen, under Safari's toolbar. */
-.bar-top {
-  display: none;
-}
-@media (max-width: 900px) and (pointer: coarse) {
-  /* The same clay as the page and the navbar beneath: floodlight, patches and specks in the
-     same places, so Safari samples the same shade rather than flat clay */
-  .bar-top {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: var(--safe-top);
-    z-index: 21;
-    background:
-      radial-gradient(ellipse 42% 40% at 50% 42%, rgba(247, 242, 230, 0.12), rgba(247, 242, 230, 0.02) 55%, rgba(247, 242, 230, 0) 75%),
-      radial-gradient(ellipse 70% 68% at 50% 44%, rgba(35, 20, 9, 0) 38%, rgba(35, 20, 9, 0.07) 72%, rgba(35, 20, 9, 0.13) 100%),
-      var(--clay);
-    background-size: 100% 100vh;
-    background-repeat: no-repeat;
-    pointer-events: none;
-  }
-  .bar-top::before,
-  .bar-top::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-  }
-  .bar-top::before {
-    background-image: url("/textures/patches.png");
-    background-size: 1700px 1700px;
-    background-position: center calc((100lvh - 1700px) * 0.4);
-    opacity: 0.45;
-  }
-  .bar-top::after {
-    background-image: url("/textures/specks.png");
-    background-size: 220px 220px;
-    background-position: 0 0;
-    opacity: 0.25;
-  }
-}
 
 body {
   margin: 0;

@@ -151,8 +151,6 @@ export default function Header({ mode = "hero" }) {
 
   return (
     <div style={staticVars}>
-      {/* Phones only: clay under Safari's status bar, so Safari tints it clay */}
-      <div aria-hidden="true" className="bar-top" />
       <HomeLink
         ref={logoRef}
         aria-label="¡Padel Padel! home"
