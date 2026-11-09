@@ -3,7 +3,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { CourtLines, StickyBottom } from "@/components/ScrollBits";
-import { BOOK_URL, offCourt, partners, plans, ticker, week } from "@/data/site";
+import Plans from "@/components/Plans";
+import { BOOK_URL, offCourt, partners, ticker, week } from "@/data/site";
 
 export const viewport = {
   themeColor: "#6d8ca1",
@@ -87,36 +88,9 @@ export default function Home() {
                 </Reveal>
               </div>
 
-              <Reveal className="stg plans">
-                {plans.map((p) => (
-                  <article key={p.name} className={`pcard${p.featured ? " pcard-hi" : ""}`}>
-                    <div className="pcard-top">
-                      <p className="mk">{p.name}</p>
-                      {p.badge && <span className="mk badge">{p.badge}</span>}
-                    </div>
-                    <p>
-                      <span className="cbig">{p.price}</span>
-                      <span className="cunit">{p.unit}</span>
-                    </p>
-                    <ul className="clist">
-                      {p.rows.map((r) => (
-                        <li key={r.label}>
-                          <span>
-                            {r.label}
-                            {r.note && <small>{r.note}</small>}
-                          </span>
-                          {r.price && <b>{r.price}</b>}
-                        </li>
-                      ))}
-                    </ul>
-                    <a href={BOOK_URL} className="btn cbtn">
-                      {p.cta}
-                    </a>
-                  </article>
-                ))}
-              </Reveal>
+              <Plans />
               <p className="plans-note">
-                Whole court £28 / £38 / £48 an hour ·{" "}
+                Whole court £28 / £38 / £48 an hour · <a href="/memberships/">All about membership</a> ·{" "}
                 <a href="https://padel-padel.uk/app">Collect points on the loyalty app</a>
               </p>
             </section>
@@ -158,7 +132,7 @@ export default function Home() {
               </Reveal>
               <p className="whats-note">
                 Want to host your own?{" "}
-                <a href="#footer" className="link-serif">
+                <a href="/corporate-hire/" className="link-serif">
                   Corporate hire and private events
                 </a>
               </p>
@@ -240,7 +214,7 @@ export default function Home() {
                   <a href={BOOK_URL} className="btn btn-cream">
                     Book a court
                   </a>
-                  <a href="#membership" className="btn btn-outline">
+                  <a href="/memberships/" className="btn btn-outline">
                     Become a member
                   </a>
                 </div>

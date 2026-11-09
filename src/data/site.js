@@ -2,6 +2,16 @@
 
 export const BOOK_URL = "https://playtomic.com/clubs/padel-padel-eltham";
 export const WHATSAPP_URL = "https://chat.whatsapp.com/Ca3h0pVSukEBk0g4hngdB7";
+// Playtomic: joining as a member, coaching (the Academy) and gift cards (Square)
+export const MEMBERSHIP_URL = "https://playtomic.io/tenant/60baf499-42ac-4dc6-8a55-4226a50697d2";
+export const ACADEMY_URL = "https://app.playtomic.io/tenant/60baf499-42ac-4dc6-8a55-4226a50697d2/academy";
+export const ACTIVITIES_URL = "https://app.playtomic.io/tenant/60baf499-42ac-4dc6-8a55-4226a50697d2/activities";
+export const GIFT_CARD_URL = "https://app.squareup.com/gift/MLYD9E3JD1QDG/order";
+export const PLAYTOMIC_URL = "https://playtomic.com/";
+// The live site's legal pages, until they move here
+export const TERMS_URL = "https://padel-padel.uk/terms-and-conditions";
+export const PRIVACY_URL =
+  "https://assets.zyrosite.com/m6LwKaoQ93cy5Lo9/the-london-padel-club-ltd---privacy-policy-AR01yG2BrecZLMqa.pdf";
 
 export const site = {
   name: "¡Padel Padel!",
@@ -11,6 +21,9 @@ export const site = {
   address: "20B Well Hall Road, Eltham, London SE9 6SF",
   addressShort: "20B Well Hall Road · Eltham SE9",
   company: "The London Padel Club Ltd",
+  email: "info@padel-padel.uk",
+  eventsEmail: "events@padel-padel.uk",
+  hours: "Daily, 7am – 11pm",
 };
 
 export const socials = [
@@ -22,17 +35,16 @@ export const socials = [
 export const menuMain = [
   { label: "Book a court", href: BOOK_URL },
   { label: "What's on", href: "/#whats-on" },
-  { label: "Memberships", href: "/#membership" },
+  { label: "Memberships", href: "/memberships/" },
   { label: "Gallery", href: "/gallery/" },
   { label: "About", href: "/about/" },
 ];
 
-// Pages still to build; they point at the footer for now
 export const menuMore = [
-  { label: "Corporate hire", href: "/#footer" },
-  { label: "Sponsorships", href: "/#footer" },
-  { label: "Gift cards", href: "/#footer" },
-  { label: "FAQs", href: "/#footer" },
+  { label: "Corporate hire", href: "/corporate-hire/" },
+  { label: "Sponsorships", href: "/sponsorships/" },
+  { label: "Gift cards", href: "/gift-cards/" },
+  { label: "FAQs", href: "/faqs/" },
 ];
 
 export const ticker = [
@@ -65,6 +77,7 @@ export const plans = [
       { label: "15% off the bar, food and drink" },
     ],
     cta: "Join monthly",
+    member: true,
   },
   {
     name: "Annual",
@@ -78,6 +91,7 @@ export const plans = [
       { label: "Members' socials and DJ nights", note: "Free cancellation up to 24 hours before" },
     ],
     cta: "Join annual",
+    member: true,
   },
 ];
 
