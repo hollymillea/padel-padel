@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { BOOK_URL, menuMain, menuMore, site, socials } from "@/data/site";
 import HomeLink from "./HomeLink";
 
@@ -16,6 +16,14 @@ const CloseIcon = () => (
 // A full-screen court, lit like the hero. Close and Book sit on the top line.
 export default function Menu({ onClose }) {
   const closeRef = useRef(null);
+  const menuRef = useRef(null);
+
+  // Put the menu's top line exactly where the navbar's line is right now. At the top of the home
+  // page it sits 6px higher than once you've scrolled, so a fixed position would jump on open.
+  useLayoutEffect(() => {
+    const row = document.querySelector(".hdr .nl-row");
+    if (row && menuRef.current) menuRef.current.style.setProperty("--menu-row-top", getComputedStyle(row).top);
+  }, []);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -30,7 +38,7 @@ export default function Menu({ onClose }) {
   }, [onClose]);
 
   return (
-    <div role="dialog" aria-modal="true" aria-label="Menu" className="menu">
+    <div ref={menuRef} role="dialog" aria-modal="true" aria-label="Menu" className="menu">
       <div aria-hidden="true" className="bgfx patches" />
       <div aria-hidden="true" className="bgfx specks" />
       <div aria-hidden="true" className="menu-frame" />

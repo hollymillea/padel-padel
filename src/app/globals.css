@@ -545,6 +545,7 @@ button {
 }
 /* In the menu the line stops at the court's side lines, with the same short ends as the bottom line */
 .menu-top .nl-row {
+  top: var(--menu-row-top, calc(var(--safe-top) + 30px));
   left: max(24px, var(--safe-left));
   right: max(24px, var(--safe-right));
 }
@@ -558,8 +559,8 @@ button {
 }
 .menu-frame {
   position: absolute;
-  /* Meets the navbar line */
-  top: calc(30px + var(--safe-top));
+  /* Meets the menu's top line (the navbar line's position when the menu opened) */
+  top: var(--menu-row-top, calc(30px + var(--safe-top)));
   left: max(24px, var(--safe-left));
   right: max(24px, var(--safe-right));
   bottom: calc(24px + var(--safe-bottom));
