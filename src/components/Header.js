@@ -7,7 +7,7 @@ import { BOOK_URL } from "@/data/site";
 
 const LOGO_RATIO = 770.04 / 1516.72;
 const GAP = 28; // room between the logo and the edge of the section pushing it up
-const SKY = [113, 149, 163]; // the hero photo's sky
+const SKY = [109, 140, 161]; // the top edge of the hero photo, as shaded on screen (older iOS only)
 const CLAY = [152, 72, 42];
 
 const browserColor = (progress) =>
@@ -50,11 +50,15 @@ export default function Header({ mode = "hero" }) {
     let frame = 0;
     let measuredWidth = 0;
     let phone = false;
+    // Safari 26+ and Chrome run the ride off the scroll position themselves (CSS scroll-driven
+    // animations), so size and position stay in lockstep. Elsewhere, script sets them each frame.
+    const cssRide = CSS.supports("animation-timeline", "scroll()");
+    root.classList.toggle("ride-css", cssRide);
 
     /*
      * The riding logo is position: sticky inside a track that ends GAP above #st-1.
      * The browser itself holds it in place and then pushes it up with the section's edge,
-     * so it moves in lockstep with the scroll (no lag on iOS). Script only sets its size.
+     * so it moves in lockstep with the scroll (no lag on iOS).
      */
     const update = () => {
       frame = 0;
@@ -67,16 +71,19 @@ export default function Header({ mode = "hero" }) {
       const e = Math.min(1, Math.max(0, (contact - edge) / (contact - land)));
       const w = start.w + (to.w - start.w) * e;
 
-      ride.style.transform = `translate3d(${(to.x - start.x) * e}px, 0, 0) scale(${w / start.w})`;
       ride.classList.add("is-placed");
-      const landed = e >= 1;
-      ride.classList.toggle("is-landed", landed);
-      logo.classList.toggle("is-landed", landed);
+      if (!cssRide) {
+        ride.style.transform = `translate3d(${(to.x - start.x) * e}px, 0, 0) scale(${w / start.w})`;
+        const landed = e >= 1;
+        ride.classList.toggle("is-landed", landed);
+        logo.classList.toggle("is-landed", landed);
+        root.style.setProperty("--e", e.toFixed(4));
+      }
 
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const fr = reduce ? 1 : Math.min(1, Math.max(0, (y - 90) / 300));
-      root.style.setProperty("--e", e.toFixed(4));
       root.style.setProperty("--fr-s", fr.toFixed(4));
+      // Older iOS reads this for its top bar; iOS 26 tints from the page content instead
       const color = browserColor(e);
       root.style.setProperty("--hero-browser-color", color);
       if (theme && !document.querySelector(".menu") && theme.content !== color) {
@@ -108,6 +115,17 @@ export default function Header({ mode = "hero" }) {
 
       const st1Top = next.getBoundingClientRect().top + window.scrollY;
       track.style.height = `${st1Top - GAP}px`;
+      if (cssRide) {
+        // The hero is pinned, so the section's edge moves at scroll speed:
+        // the ride runs between these two scroll positions
+        const h0 = start.w * LOGO_RATIO;
+        const rideStart = st1Top - (start.y + h0 + GAP);
+        const rideEnd = st1Top - (to.y + to.w * LOGO_RATIO + GAP);
+        root.style.setProperty("--ride-start", `${rideStart.toFixed(1)}px`);
+        root.style.setProperty("--ride-end", `${rideEnd.toFixed(1)}px`);
+        root.style.setProperty("--ride-dx", `${(to.x - start.x).toFixed(2)}px`);
+        root.style.setProperty("--ride-k", (to.w / start.w).toFixed(5));
+      }
       ride.style.top = `${start.y}px`;
       ride.style.marginTop = `${start.y}px`;
       ride.style.marginLeft = `${start.x}px`;
@@ -141,6 +159,8 @@ export default function Header({ mode = "hero" }) {
       root.style.removeProperty("--fr-s");
       root.style.removeProperty("--hero-browser-color");
       root.style.removeProperty("--phone-screen-height");
+      root.classList.remove("ride-css");
+      for (const v of ["--ride-start", "--ride-end", "--ride-dx", "--ride-k"]) root.style.removeProperty(v);
       if (theme && originalTheme) theme.content = originalTheme;
     };
   }, [moving]);
@@ -150,7 +170,7 @@ export default function Header({ mode = "hero" }) {
     if (theme) {
       theme.content = menuOpen || !moving
         ? "#98482a"
-        : document.documentElement.style.getPropertyValue("--hero-browser-color") || "#7195a3";
+        : document.documentElement.style.getPropertyValue("--hero-browser-color") || "#6d8ca1";
     }
   }, [menuOpen, moving]);
 
@@ -158,7 +178,6 @@ export default function Header({ mode = "hero" }) {
 
   return (
     <div style={staticVars}>
-      <div aria-hidden="true" className="browser-edge" />
       <HomeLink
         ref={logoRef}
         aria-label="¡Padel Padel! home"

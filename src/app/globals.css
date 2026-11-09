@@ -21,8 +21,6 @@
   --safe-left: env(safe-area-inset-left, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
   --clay: #98482a;
-  --sky: #7195a3;
-  --browser-color: var(--clay);
   --cream: #f7f2e6;
   --ink: #231409;
   --blush: #f0ddd0; /* their warm off-white */
@@ -47,24 +45,16 @@
   box-sizing: border-box;
 }
 
-/* Safari on iOS 26 takes its top-bar colour from the page, so the page background
-   follows the same sky-to-clay blend as the theme colour */
+/* iOS 26 Safari tints its bars from the page content beneath them: at the top of the
+   home page that is the hero photo, then the clay header bar as it fades in with --e */
 html {
-  background: var(--browser-color);
+  background: var(--clay);
   color-scheme: only light;
-}
-
-html:has(.hero) {
-  --browser-color: var(--hero-browser-color, var(--sky));
-}
-
-html:has(.menu) {
-  --browser-color: var(--clay);
 }
 
 body {
   margin: 0;
-  background: var(--browser-color);
+  background: var(--clay);
   color: var(--cream);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
@@ -277,18 +267,6 @@ button {
 
 /* ---------- Header: the court's top line is the navbar ---------- */
 
-.browser-edge {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: max(3px, var(--safe-top));
-  background-color: var(--browser-color);
-  z-index: 21;
-  pointer-events: none;
-}
-
 .hdr {
   position: fixed;
   top: 0;
@@ -439,6 +417,34 @@ button {
   visibility: hidden;
 }
 
+/* Browser-driven ride (Safari 26+, Chrome): progress --e, the logo's size and the
+   hand-over to the header logo all run off the scroll position, with no script lag.
+   The header writes --ride-start/--ride-end (scroll positions), --ride-dx and --ride-k. */
+@property --e {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+.ride-css {
+  animation: ride-progress linear both;
+  animation-timeline: scroll(root);
+  animation-range: var(--ride-start, 0px) var(--ride-end, 1px);
+}
+@keyframes ride-progress {
+  from { --e: 0; }
+  to { --e: 1; }
+}
+/* Everything else follows --e: the ride's size and drift, and the hand-over at --e = 1 */
+.ride-css .logo-ride.is-placed {
+  transform: translate3d(calc(var(--ride-dx, 0px) * var(--e)), 0, 0)
+    scale(calc(1 + (var(--ride-k, 1) - 1) * var(--e)));
+  opacity: calc((0.78 + 0.22 * var(--e)) * clamp(0, (1 - var(--e)) * 1000, 1));
+}
+.ride-css .hdr-logo.is-moving {
+  visibility: visible;
+  opacity: clamp(0, (var(--e) - 0.999) * 1000, 1);
+}
+
 /* ---------- Menu ---------- */
 
 .menu {
@@ -471,9 +477,28 @@ button {
     animation: none;
   }
 }
+/* Same box and line as the finished navbar */
+.menu-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  height: calc(64px + var(--safe-top));
+  pointer-events: none;
+}
+.menu-top .hdr-book {
+  pointer-events: auto;
+}
+.menu-close-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
 .menu-frame {
   position: absolute;
-  top: calc(24px + var(--safe-top));
+  /* Meets the navbar line */
+  top: calc(30px + var(--safe-top));
   left: max(24px, var(--safe-left));
   right: max(24px, var(--safe-right));
   bottom: calc(24px + var(--safe-bottom));
@@ -510,20 +535,6 @@ button {
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 32px;
   align-items: center;
-}
-.menu-logo {
-  position: absolute;
-  top: calc(52px + var(--safe-top));
-  left: 50%;
-  transform: translateX(-50%);
-  height: 64px;
-  width: auto;
-  aspect-ratio: 1517 / 770;
-}
-.menu-logo img {
-  display: block;
-  width: 100%;
-  height: 100%;
 }
 .menu-main {
   grid-column: 1 / span 7;
@@ -1297,9 +1308,6 @@ button {
 /* ---------- Tablets and phones ---------- */
 
 @media (max-width: 900px) {
-  .browser-edge {
-    display: block;
-  }
   :root {
     --nl-pad: 12px;
     --logo-gap: 112px;
@@ -1478,16 +1486,12 @@ button {
   }
   .menu-body {
     min-height: 100%;
-    padding: calc(124px + var(--safe-top)) max(36px, calc(var(--safe-right) + 24px)) calc(84px + var(--safe-bottom)) max(36px, calc(var(--safe-left) + 24px));
+    padding: calc(92px + var(--safe-top)) max(36px, calc(var(--safe-right) + 24px)) calc(84px + var(--safe-bottom)) max(36px, calc(var(--safe-left) + 24px));
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
     gap: 28px;
-  }
-  .menu-logo {
-    height: 44px;
-    top: calc(62px + var(--safe-top));
   }
   .menu-main {
     gap: 2px;
