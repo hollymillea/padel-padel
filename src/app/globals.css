@@ -242,15 +242,6 @@ button {
     radial-gradient(ellipse 42% 40% at 50% 42%, rgba(247, 242, 230, 0.12), rgba(247, 242, 230, 0.02) 55%, rgba(247, 242, 230, 0) 75%),
     radial-gradient(ellipse 70% 68% at 50% 44%, rgba(35, 20, 9, 0) 38%, rgba(35, 20, 9, 0.07) 72%, rgba(35, 20, 9, 0.13) 100%);
 }
-.flood-hi {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 42% 40% at 50% 42%, rgba(247, 242, 230, 0.3), rgba(247, 242, 230, 0.06) 55%, rgba(247, 242, 230, 0) 75%),
-    radial-gradient(ellipse 70% 68% at 50% 44%, rgba(35, 20, 9, 0) 38%, rgba(35, 20, 9, 0.26) 72%, rgba(35, 20, 9, 0.48) 100%);
-}
 
 /* ---------- Reveals ---------- */
 
@@ -536,6 +527,14 @@ button {
 }
 .menu-top .hdr-book {
   pointer-events: auto;
+}
+/* In the menu the line stops at the court's side lines, with the same short ends as the bottom line */
+.menu-top .nl-row {
+  left: max(24px, var(--safe-left));
+  right: max(24px, var(--safe-right));
+}
+.menu-top .nl-end {
+  flex-basis: 14px;
 }
 .menu-close-ghost {
   display: inline-flex;
@@ -2198,7 +2197,8 @@ button {
     left: max(12px, var(--safe-left));
     right: max(12px, var(--safe-right));
   }
-  .menu-line {
+  .menu-line,
+  .menu-top .nl-row {
     left: max(12px, var(--safe-left));
     right: max(12px, var(--safe-right));
   }

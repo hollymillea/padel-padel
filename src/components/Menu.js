@@ -33,7 +33,6 @@ export default function Menu({ onClose }) {
     <div role="dialog" aria-modal="true" aria-label="Menu" className="menu">
       <div aria-hidden="true" className="bgfx patches" />
       <div aria-hidden="true" className="bgfx specks" />
-      <div aria-hidden="true" className="flood-hi" />
       <div aria-hidden="true" className="menu-frame" />
 
       {/* The top row is the navbar, finished: Close where Menu sits, the logo, then Book */}
