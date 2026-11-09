@@ -48,7 +48,7 @@
 }
 
 html {
-  background: var(--browser-color);
+  background: var(--clay);
   color-scheme: only light;
 }
 
@@ -62,7 +62,7 @@ html:has(.menu) {
 
 body {
   margin: 0;
-  background: var(--browser-color);
+  background: var(--clay);
   color: var(--cream);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
@@ -275,6 +275,18 @@ button {
 
 /* ---------- Header: the court's top line is the navbar ---------- */
 
+.browser-edge {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: max(3px, var(--safe-top));
+  background-color: var(--browser-color);
+  z-index: 21;
+  pointer-events: none;
+}
+
 .hdr {
   position: fixed;
   top: 0;
@@ -388,7 +400,11 @@ button {
   height: auto;
 }
 .hdr-logo.is-moving {
+  top: 0;
+  left: 0;
   transform: none;
+  transform-origin: top left;
+  will-change: transform;
   opacity: 0;
 }
 .hdr-logo.is-moving.is-placed {
@@ -1232,6 +1248,9 @@ button {
 /* ---------- Tablets and phones ---------- */
 
 @media (max-width: 900px) {
+  .browser-edge {
+    display: block;
+  }
   :root {
     --nl-pad: 12px;
     --logo-gap: 112px;

@@ -43,6 +43,10 @@ export default function Header({ mode = "hero" }) {
     const originalTheme = theme?.content;
     let start = null;
     let frame = 0;
+    let measuredWidth = 0;
+    let phone = false;
+    let destination = null;
+    const next = document.getElementById("st-1");
 
     const logoWidth = () => (window.innerWidth < 900 ? 76 : 84);
 
@@ -50,11 +54,9 @@ export default function Header({ mode = "hero" }) {
       frame = 0;
       if (!start) return;
       const y = window.scrollY;
-      const lwEnd = logoWidth();
-      const safeTop = Math.max(0, hdr.offsetHeight - 64);
-      const to = { x: (window.innerWidth - lwEnd) / 2, y: safeTop + (HDR - lwEnd * LOGO_RATIO) / 2, w: lwEnd };
+      const to = destination;
+      const lwEnd = to.w;
       const h0 = start.w * LOGO_RATIO;
-      const next = document.getElementById("st-1");
       const edge = next ? next.getBoundingClientRect().top : Infinity;
       const contact = start.y + h0 + GAP;
       const land = to.y + lwEnd * LOGO_RATIO + GAP;
@@ -63,9 +65,7 @@ export default function Header({ mode = "hero" }) {
       const top = e <= 0 ? start.y : e >= 1 ? to.y : edge - GAP - w * LOGO_RATIO;
       const left = start.x + (to.x - start.x) * e;
 
-      logo.style.left = `${left}px`;
-      logo.style.top = `${top}px`;
-      logo.style.width = `${w}px`;
+      logo.style.transform = `translate3d(${left}px, ${top}px, 0) scale(${w / start.w})`;
       logo.classList.add("is-placed");
 
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -82,7 +82,8 @@ export default function Header({ mode = "hero" }) {
 
     const measure = () => {
       const { width, height } = window.screen;
-      const phone = window.matchMedia("(pointer: coarse)").matches && Math.min(width, height) <= 600;
+      phone = window.matchMedia("(pointer: coarse)").matches && Math.min(width, height) <= 600;
+      measuredWidth = window.innerWidth;
       if (phone) {
         const portrait = window.matchMedia("(orientation: portrait)").matches;
         const screenHeight = portrait ? Math.max(width, height) : Math.min(width, height);
@@ -96,11 +97,21 @@ export default function Header({ mode = "hero" }) {
       // place inside the hero is its place on screen (even if the page loads part-way down)
       const r = slot.getBoundingClientRect();
       start = { x: r.left, y: slot.offsetTop, w: r.width };
+      const lwEnd = logoWidth();
+      const safeTop = Math.max(0, hdr.offsetHeight - 64);
+      destination = { x: (window.innerWidth - lwEnd) / 2, y: safeTop + (HDR - lwEnd * LOGO_RATIO) / 2, w: lwEnd };
+      logo.style.width = `${start.w}px`;
       update();
     };
 
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    const onResize = () => {
+      // Safari expands/collapses its toolbar during scrolling; retain the logo's origin.
+      if (phone && window.innerWidth === measuredWidth) return;
+      measure();
     };
 
     // Measure from the top of the page so the start point is the hero's resting place
@@ -110,10 +121,10 @@ export default function Header({ mode = "hero" }) {
     measure();
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", measure);
+    window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", measure);
+      window.removeEventListener("resize", onResize);
       if (frame) cancelAnimationFrame(frame);
       root.style.removeProperty("--e");
       root.style.removeProperty("--fr-s");
@@ -136,6 +147,7 @@ export default function Header({ mode = "hero" }) {
 
   return (
     <div style={staticVars}>
+      <div aria-hidden="true" className="browser-edge" />
       <HomeLink
         ref={logoRef}
         aria-label="¡Padel Padel! home"
