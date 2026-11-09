@@ -67,6 +67,8 @@ export default function Home() {
             </div>
           </section>
 
+          {/* The wrapper casts the shadow; the section clips its floodlight exactly at its own edge */}
+          <div className="lift lift-1">
           <div id="st-1" className="st-1">
             <div aria-hidden="true" className="bgfx patches" />
             <div aria-hidden="true" className="bgfx specks" />
@@ -118,6 +120,7 @@ export default function Home() {
                 <a href="https://padel-padel.uk/app">Collect points on the loyalty app</a>
               </p>
             </section>
+          </div>
           </div>
         </div>
 
@@ -174,6 +177,7 @@ export default function Home() {
             ))}
           </StickyBottom>
 
+          <div className="lift lift-4">
           <div className="st-4">
             <div aria-hidden="true" className="bgfx patches" />
             <div aria-hidden="true" className="bgfx specks" />
@@ -242,10 +246,12 @@ export default function Home() {
                 </div>
               </section>
             </div>
+
+            {/* Inside the last section so its clay texture runs on without a seam */}
+            <Footer />
+          </div>
           </div>
         </div>
-
-        <Footer />
       </main>
     </>
   );

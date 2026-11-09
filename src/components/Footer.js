@@ -16,6 +16,7 @@ export default function Footer() {
         <li><a href="/#whats-on">What&apos;s on</a></li>
         <li><a href="/#membership">Memberships</a></li>
         <li><a href="/#off-court">The bar</a></li>
+        <li><a href="/gallery/">Gallery</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/#footer">Corporate hire</a></li>
         <li><a href="/#footer">Sponsorships</a></li>

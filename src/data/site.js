@@ -23,7 +23,7 @@ export const menuMain = [
   { label: "Book a court", href: BOOK_URL },
   { label: "What's on", href: "/#whats-on" },
   { label: "Memberships", href: "/#membership" },
-  { label: "Off court", href: "/#off-court" },
+  { label: "Gallery", href: "/gallery/" },
   { label: "About", href: "/about/" },
 ];
 
@@ -132,6 +132,20 @@ export const week = [
     cta: "Book",
     href: BOOK_URL,
   },
+];
+
+// The gallery page, in order. w/h are the files' pixel sizes, so the grid holds its shape while loading.
+export const gallery = [
+  { src: "/images/hero-four-players.jpg", w: 1800, h: 1200, label: "Doubles", alt: "Four players mid-rally across the net" },
+  { src: "/images/rally.jpg", w: 1200, h: 1800, label: "The rally", alt: "A player stretching for a low ball on the clay-coloured court" },
+  { src: "/images/glass.jpg", w: 1200, h: 1800, label: "Off the glass", alt: "A player lunging for a volley beside the glass walls" },
+  { src: "/images/group.jpg", w: 1200, h: 1800, label: "The club", alt: "Members gathered together on court in the sun" },
+  { src: "/images/courts.jpg", w: 1800, h: 1200, label: "The courts", alt: "The courts in front of the old brick buildings in Eltham" },
+  { src: "/images/rackets.jpg", w: 1200, h: 1800, label: "Club rackets", alt: "A player holding up a Padel Padel racket" },
+  { src: "/images/circuits.jpg", w: 1200, h: 1800, label: "Circuits", alt: "A circuits class working out on mats on court" },
+  { src: "/images/drinks.jpg", w: 1200, h: 1800, label: "After the game", alt: "Two members laughing over drinks courtside" },
+  { src: "/images/terrace.jpg", w: 1200, h: 1800, label: "The terrace", alt: "The terrace with parasols and picnic tables" },
+  { src: "/images/clubhouse.jpg", w: 1200, h: 1800, label: "The clubhouse", alt: "Players heading into the clubhouse and its bar" },
 ];
 
 export const offCourt = [

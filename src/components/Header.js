@@ -201,6 +201,7 @@ export default function Header({ mode = "hero" }) {
 
       <header ref={hdrRef} className={`hdr${moving ? "" : " hdr-ready"}`}>
         <div aria-hidden="true" className="hdr-bg" />
+        <div aria-hidden="true" className="hdr-pat" />
         <div aria-hidden="true" className="hdr-spk" />
 
         {/* The line, with gaps where the items sit */}
