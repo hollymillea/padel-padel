@@ -491,6 +491,9 @@ button {
   --h: clamp(820px, 100vh, 1000px);
   /* The photo's drawn height, so the logo can sit just under the net tape at any width */
   --img-h: max(var(--h), calc((100vw + 64px) / 1.5));
+  --logo-top: calc(0.32 * var(--h) - 0.086 * var(--img-h) + 10px);
+  /* The court fence is 54.5% down the photo, with its current 75% crop. */
+  --court-top: calc(0.75 * var(--h) - 0.205 * var(--img-h));
   position: sticky;
   top: 0;
   z-index: 0;
@@ -499,7 +502,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: calc(0.32 * var(--h) - 0.086 * var(--img-h) + 50px) 40px 40px;
+  padding: var(--logo-top) 40px 40px;
   text-align: center;
 }
 .hero-img {
@@ -511,7 +514,8 @@ button {
   max-width: none;
   height: 100%;
   object-fit: cover;
-  object-position: center bottom;
+  /* Show a narrower strip of net tape above the court. */
+  object-position: center 75%;
   filter: brightness(0.97) contrast(1.03);
 }
 .hero-shade {
@@ -532,10 +536,12 @@ button {
 .hero-side.r { right: 24px; }
 .hero-logo-slot {
   position: relative;
+  /* Keep the 223.4px-tall desktop logo at least 24px above the fence. */
+  top: min(-24px, calc(var(--court-top) - var(--logo-top) - 223.4px - 24px));
   width: 440px;
   max-width: 80%;
   aspect-ratio: 1516.72 / 770.04;
-  margin: 0 0 64px;
+  margin: 0 0 52px;
 }
 /* Capitals like the other headings, but smaller, in their warm off-white so it isn't stark white */
 .hero-title {
@@ -547,7 +553,7 @@ button {
 }
 .hero-cta {
   position: relative;
-  margin-top: 36px;
+  margin-top: 28px;
   opacity: calc(1 - var(--e) * 1.8);
   transform: translateY(calc(var(--e) * -36px));
 }
@@ -1064,6 +1070,23 @@ button {
 .ab-court {
   padding: 88px 80px;
 }
+.ab-founders {
+  padding-top: 56px;
+}
+.ab-founders .section-head {
+  margin-bottom: 40px;
+}
+.ab-founders h1 {
+  margin-top: 18px;
+  font-size: clamp(64px, 7.5vw, 112px);
+  line-height: 0.95;
+}
+.founders-intro {
+  max-width: 640px;
+  margin: 24px auto 0;
+  font-size: 18px;
+  line-height: 1.55;
+}
 .ab-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -1201,28 +1224,30 @@ button {
   }
 
   .hero {
-    --h: 100vh;
-    height: 100vh;
-    height: 100svh;
-    min-height: 600px;
-    padding: 28svh 24px 40px;
+    --h: max(600px, 100vh);
+    --h: max(600px, 100svh);
+    height: var(--h);
+    /* Leave breathing room below the branded tape in the portrait crop. */
+    padding: calc(0.24 * var(--h) + 24px) 24px 40px;
   }
   .hero-img {
     left: 0;
     width: 100%;
-    object-position: 45% bottom;
+    /* Align the court's centre net with the centred hero content. */
+    object-position: 54% 75%;
   }
   .hero-side.l { left: 12px; }
   .hero-side.r { right: 12px; }
   .hero-logo-slot {
+    top: 0;
     width: 290px;
-    margin-bottom: 30px;
+    margin-bottom: 36px;
   }
   .hero-title {
     font-size: 32px;
   }
   .hero-cta {
-    margin-top: 30px;
+    margin-top: 24px;
   }
   .hero-cta .btn {
     width: 240px;

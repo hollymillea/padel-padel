@@ -19,22 +19,55 @@ export default function About() {
         <div aria-hidden="true" className="bgfx patches" style={{ backgroundPosition: "center 30%" }} />
         <div aria-hidden="true" className="bgfx specks" />
 
-        {/* Opening court */}
+        {/* The founders lead the About page */}
         <div className="ab-pad" style={{ paddingTop: 32 }}>
-          <section className="court ab-open">
-            <div aria-hidden="true" className="flood" />
-            <p className="mk" style={{ opacity: 0.85 }}>
-              About us
-            </p>
-            <h1 className="serif">
-              Two friends.
-              <br />
-              Four courts.
-            </h1>
-            <p className="lede">
-              ¡Padel Padel! started in 2024 with a conversation between two school friends who couldn&apos;t get a
-              court anywhere in London. So they built a club of their own, in Eltham.
-            </p>
+          <section id="founders" className="court ab-court ab-founders">
+            <div aria-hidden="true" className="flood-soft" />
+            <div className="section-head">
+              <p className="mk" style={{ opacity: 0.85 }}>
+                About us / The founders
+              </p>
+              <h1 className="serif">Meet Duy and Joe.</h1>
+              <p className="lede founders-intro">
+                ¡Padel Padel! started in 2024 with a conversation between two school friends who couldn&apos;t get a
+                court anywhere in London. So they built a club of their own, in Eltham.
+              </p>
+            </div>
+            <div className="founders">
+              <figure>
+                <div className="portrait">
+                  <img className="ph" src="/images/founder-duy.jpg" alt="Portrait of Duy Le on court" />
+                </div>
+                <figcaption>
+                  <p className="serif name">Duy Le</p>
+                  <p className="mk" style={{ marginTop: 8, opacity: 0.85 }}>
+                    Co-founder &amp; Director
+                  </p>
+                  <p className="bio" style={{ marginTop: 14 }}>
+                    Background in project management and e-commerce. Came to padel from tennis and hasn&apos;t looked
+                    back.
+                  </p>
+                </figcaption>
+              </figure>
+              <figure>
+                <div className="portrait">
+                  <img
+                    className="ph"
+                    src="/images/founder-joe.jpg"
+                    alt="Portrait of Joe Bearman on court"
+                  />
+                </div>
+                <figcaption>
+                  <p className="serif name">Joe Bearman</p>
+                  <p className="mk" style={{ marginTop: 8, opacity: 0.85 }}>
+                    Co-founder &amp; Director
+                  </p>
+                  <p className="bio" style={{ marginTop: 14 }}>
+                    ACA-qualified accountant who looks after the finances, and plays a lot of padel.
+                  </p>
+                </figcaption>
+              </figure>
+            </div>
           </section>
         </div>
 
@@ -80,57 +113,6 @@ export default function About() {
                   <p>Padel has more than 30 million players worldwide.</p>
                 </div>
               </div>
-            </div>
-          </section>
-        </div>
-
-        {/* Founders */}
-        <div className="ab-pad">
-          <section id="founders" className="court ab-court">
-            <div aria-hidden="true" className="flood-soft" />
-            <div className="section-head" style={{ marginBottom: 56 }}>
-              <p className="mk" style={{ opacity: 0.85 }}>
-                The founders
-              </p>
-              <Reveal as="h2" className="serif rv section-title">
-                <span>Meet Duy and Joe.</span>
-              </Reveal>
-            </div>
-            <div className="founders">
-              <figure>
-                <div className="portrait">
-                  <img className="ph" src="/images/founder-duy.jpg" alt="Portrait of Duy Le on court" loading="lazy" />
-                </div>
-                <figcaption>
-                  <p className="serif name">Duy Le</p>
-                  <p className="mk" style={{ marginTop: 8, opacity: 0.85 }}>
-                    Co-founder &amp; Director
-                  </p>
-                  <p className="bio" style={{ marginTop: 14 }}>
-                    Background in project management and e-commerce. Came to padel from tennis and hasn&apos;t looked
-                    back.
-                  </p>
-                </figcaption>
-              </figure>
-              <figure>
-                <div className="portrait">
-                  <img
-                    className="ph"
-                    src="/images/founder-joe.jpg"
-                    alt="Portrait of Joe Bearman on court"
-                    loading="lazy"
-                  />
-                </div>
-                <figcaption>
-                  <p className="serif name">Joe Bearman</p>
-                  <p className="mk" style={{ marginTop: 8, opacity: 0.85 }}>
-                    Co-founder &amp; Director
-                  </p>
-                  <p className="bio" style={{ marginTop: 14 }}>
-                    ACA-qualified accountant who looks after the finances, and plays a lot of padel.
-                  </p>
-                </figcaption>
-              </figure>
             </div>
           </section>
         </div>
