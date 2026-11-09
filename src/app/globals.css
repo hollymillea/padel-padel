@@ -445,12 +445,21 @@ button {
   from { --e: 0; }
   to { --e: 1; }
 }
-/* Everything else follows --e: the ride's size and drift, and the hand-over at --e = 1 */
+/* The ride's size and drift are a transform/opacity animation of their own, so Safari can run
+   them on the compositor, in step with the scroll even when the page's main thread is busy.
+   (Deriving them from --e would tie them to the main thread, where the size visibly steps.) */
 .ride-css .logo-ride.is-placed {
-  transform: translate3d(calc(var(--ride-dx, 0px) * var(--e)), 0, 0)
-    scale(calc(1 + (var(--ride-k, 1) - 1) * var(--e)));
-  opacity: calc((0.78 + 0.22 * var(--e)) * clamp(0, (1 - var(--e)) * 1000, 1));
+  animation: ride-logo linear both;
+  animation-timeline: scroll(root);
+  animation-range: var(--ride-start, 0px) var(--ride-end, 1px);
+  will-change: transform, opacity;
 }
+@keyframes ride-logo {
+  from { transform: translate3d(0, 0, 0) scale(1); opacity: 0.78; }
+  99.9% { opacity: 1; }
+  to { transform: translate3d(var(--ride-dx, 0px), 0, 0) scale(var(--ride-k, 1)); opacity: 0; }
+}
+/* The header's own logo takes over at --e = 1 */
 .ride-css .hdr-logo.is-moving {
   visibility: visible;
   opacity: clamp(0, (var(--e) - 0.999) * 1000, 1);
@@ -1061,7 +1070,6 @@ button {
   font-size: 112px;
   line-height: 0.95;
   letter-spacing: -0.02em;
-  text-shadow: 12px 20px 4px rgba(35, 20, 9, 0.18);
 }
 .sign-off .btns {
   display: flex;
@@ -1473,7 +1481,6 @@ button {
     /* One line on any phone */
     font-size: min(64px, 14vw);
     white-space: nowrap;
-    text-shadow: 8px 12px 3px rgba(35, 20, 9, 0.18);
   }
 
   .footer {
