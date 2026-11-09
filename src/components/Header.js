@@ -7,11 +7,11 @@ import { BOOK_URL } from "@/data/site";
 
 const LOGO_RATIO = 770.04 / 1516.72;
 const GAP = 28; // room between the logo and the edge of the section pushing it up
-const CREAM = [247, 242, 230];
+const SKY = [113, 149, 163]; // the hero photo's sky
 const CLAY = [152, 72, 42];
 
 const browserColor = (progress) =>
-  "#" + CREAM.map((channel, index) =>
+  "#" + SKY.map((channel, index) =>
     Math.round(channel + (CLAY[index] - channel) * progress).toString(16).padStart(2, "0")
   ).join("");
 
@@ -150,7 +150,7 @@ export default function Header({ mode = "hero" }) {
     if (theme) {
       theme.content = menuOpen || !moving
         ? "#98482a"
-        : document.documentElement.style.getPropertyValue("--hero-browser-color") || "#f7f2e6";
+        : document.documentElement.style.getPropertyValue("--hero-browser-color") || "#7195a3";
     }
   }, [menuOpen, moving]);
 

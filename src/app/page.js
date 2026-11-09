@@ -6,7 +6,7 @@ import { CourtLines, StickyBottom } from "@/components/ScrollBits";
 import { BOOK_URL, offCourt, partners, plans, ticker, week } from "@/data/site";
 
 export const viewport = {
-  themeColor: "#f7f2e6",
+  themeColor: "#7195a3",
 };
 
 function Ticker() {

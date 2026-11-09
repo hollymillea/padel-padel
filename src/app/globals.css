@@ -21,6 +21,7 @@
   --safe-left: env(safe-area-inset-left, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
   --clay: #98482a;
+  --sky: #7195a3;
   --browser-color: var(--clay);
   --cream: #f7f2e6;
   --ink: #231409;
@@ -46,13 +47,15 @@
   box-sizing: border-box;
 }
 
+/* Safari on iOS 26 takes its top-bar colour from the page, so the page background
+   follows the same sky-to-clay blend as the theme colour */
 html {
-  background: var(--clay);
+  background: var(--browser-color);
   color-scheme: only light;
 }
 
 html:has(.hero) {
-  --browser-color: var(--hero-browser-color, var(--cream));
+  --browser-color: var(--hero-browser-color, var(--sky));
 }
 
 html:has(.menu) {
@@ -61,7 +64,7 @@ html:has(.menu) {
 
 body {
   margin: 0;
-  background: var(--clay);
+  background: var(--browser-color);
   color: var(--cream);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
