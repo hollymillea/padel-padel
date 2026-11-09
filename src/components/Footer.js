@@ -1,11 +1,14 @@
 import { site, socials } from "@/data/site";
+import HomeLink from "./HomeLink";
 
 export default function Footer() {
   return (
     <footer id="footer" className="footer">
       <div className="footer-brand">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/logo-cream.svg" alt="¡Padel Padel!" />
+        <HomeLink aria-label="¡Padel Padel! home">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/logo-cream.svg" alt="¡Padel Padel!" />
+        </HomeLink>
         <p style={{ opacity: 0.85 }}>{site.address}</p>
       </div>
       <ul className="footer-col">

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Menu from "./Menu";
+import HomeLink from "./HomeLink";
 import { BOOK_URL } from "@/data/site";
 
 const HDR = 60; // header height once scrolled
@@ -99,15 +100,14 @@ export default function Header({ mode = "hero" }) {
 
   return (
     <div style={staticVars}>
-      <a
+      <HomeLink
         ref={logoRef}
-        href="/"
         aria-label="¡Padel Padel! home"
         className={`hdr-logo${moving ? " is-moving" : ""}`}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/logo-cream.svg" alt="" width="1517" height="770" />
-      </a>
+      </HomeLink>
 
       <header ref={hdrRef} className={`hdr${moving ? "" : " hdr-ready"}`}>
         <div aria-hidden="true" className="hdr-bg" />

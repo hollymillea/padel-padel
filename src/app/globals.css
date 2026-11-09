@@ -438,6 +438,12 @@ button {
   transform: translateX(-50%);
   height: 64px;
   width: auto;
+  aspect-ratio: 1517 / 770;
+}
+.menu-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .menu-main {
   grid-column: 1 / span 7;

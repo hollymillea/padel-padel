@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { BOOK_URL, menuMain, menuMore, site, socials } from "@/data/site";
+import HomeLink from "./HomeLink";
 
 // A full-screen court, lit like the hero. Close and Book sit on the top line.
 export default function Menu({ onClose }) {
@@ -66,8 +67,10 @@ export default function Menu({ onClose }) {
       </div>
 
       <div className="menu-body">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/logo-cream.svg" alt="¡Padel Padel!" className="menu-logo" />
+        <HomeLink className="menu-logo" aria-label="¡Padel Padel! home">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/logo-cream.svg" alt="¡Padel Padel!" />
+        </HomeLink>
         <ul className="menu-main">
           {menuMain.map((m) => (
             <li key={m.label}>
