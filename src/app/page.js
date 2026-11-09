@@ -4,32 +4,13 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { CourtLines, StickyBottom } from "@/components/ScrollBits";
 import Plans from "@/components/Plans";
-import { BOOK_URL, offCourt, partners, ticker, week } from "@/data/site";
+import Ticker from "@/components/Ticker";
+import { BOOK_URL, offCourt, partners, week } from "@/data/site";
 
 export const viewport = {
   themeColor: "#6d8ca1",
 };
 
-function Ticker() {
-  const run = (hidden) => (
-    <div className="tick-run" aria-hidden={hidden || undefined}>
-      {ticker.map((t) => (
-        <span key={t} style={{ display: "contents" }}>
-          <span className="tick-i">{t}</span>
-          <img className="tick-s" src="/images/emblem-clay.svg" alt="" width="44" height="46" />
-        </span>
-      ))}
-    </div>
-  );
-  return (
-    <div className="ticker" role="note" aria-label={ticker.join(". ") + "."}>
-      <div className="tick" aria-hidden="true">
-        {run()}
-        {run(true)}
-      </div>
-    </div>
-  );
-}
 
 export default function Home() {
   return (

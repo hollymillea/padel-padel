@@ -1,5 +1,23 @@
-import InfoPage, { Faq, Panel } from "@/components/InfoPage";
+/* eslint-disable @next/next/no-img-element */
+import InfoPage, { Cards, Faq, Panel } from "@/components/InfoPage";
 import { GIFT_CARD_URL, PLAYTOMIC_URL, site } from "@/data/site";
+
+// A drawn gift card in the club's colours: a clay court with cream lines, and a cream card behind it
+function GiftCard() {
+  return (
+    <div className="gc-stack" aria-hidden="true">
+      <div className="gc gc-back">
+        <img src="/images/emblem-clay.svg" alt="" className="gc-emblem" />
+      </div>
+      <div className="gc gc-front">
+        <i className="gc-court" />
+        <img src="/images/logo-cream.svg" alt="" className="gc-logo" />
+        <p className="mk gc-kind">E-gift card</p>
+        <p className="mk gc-for">Courts · Coaching · Events</p>
+      </div>
+    </div>
+  );
+}
 
 export const metadata = {
   title: "Gift cards",
@@ -70,8 +88,20 @@ export default function GiftCards() {
           Buy a gift card
         </a>
       }
+      media={<GiftCard />}
+      ticker={["Courts", "Coaching", "Events", "Never expires", "Spend it on Playtomic"]}
     >
-      <Panel kicker="Lucky enough to have one?" title="Redeem in three steps.">
+      <Panel kicker="Spend it on" title="Something for every player.">
+        <Cards
+          items={[
+            { title: "Courts", body: "An hour on court with friends, any time of day.", img: "/images/hero-four-players.jpg", alt: "Four players mid-rally across the net" },
+            { title: "Coaching", body: "Sessions for every level, from first game to tournament ready.", img: "/images/glass.jpg", alt: "A player lunging for a volley by the glass", pos: "center 40%" },
+            { title: "Events", body: "Americanos, socials and club nights through the year.", img: "/images/rally.jpg", alt: "A player stretching for a low ball", pos: "center 60%" },
+          ]}
+        />
+      </Panel>
+
+      <Panel kicker="Lucky enough to have one?" title="Redeem in three steps." tone="cream">
         <ol className="ip-steps">
           <li>
             <div>
@@ -91,7 +121,7 @@ export default function GiftCards() {
           </li>
         </ol>
         <div className="ip-actions">
-          <a href={redeemMail} className="btn btn-cream">
+          <a href={redeemMail} className="btn btn-clay">
             Email us your card
           </a>
         </div>

@@ -170,6 +170,11 @@ button {
   border-color: var(--cream);
   color: var(--cream);
 }
+/* For cream backgrounds */
+.btn-clay {
+  background: var(--clay);
+  color: var(--cream);
+}
 
 .navlink {
   position: relative;
@@ -1495,7 +1500,7 @@ button {
   top: 50%;
   height: 3px;
   margin-top: -1.5px;
-  background: var(--cream);
+  background: currentColor;
   transition: transform 220ms ease;
 }
 .faq summary i::after {
@@ -1585,6 +1590,257 @@ button {
   display: block;
   width: auto;
   max-width: 100%;
+}
+
+/* Heading with media: copy on the left, a photo (or the gift card) on the right */
+.ip-head.has-media {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 32px;
+  align-items: center;
+  padding: 72px 80px;
+  text-align: left;
+}
+.ip-head.has-media .ip-head-copy {
+  grid-column: 1 / span 6;
+}
+.ip-head.has-media .page-title {
+  font-size: clamp(56px, 6.2vw, 100px);
+}
+.ip-head.has-media .page-intro {
+  margin-left: 0;
+  max-width: 480px;
+}
+.ip-head.has-media .ip-actions {
+  justify-content: flex-start;
+}
+.ip-head-media {
+  grid-column: 8 / span 5;
+}
+.ip-photo {
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 18px 36px rgba(35, 20, 9, 0.25);
+}
+
+/* The cream ticker, edge to edge between courts */
+.ip-ticker {
+  margin-bottom: 40px;
+}
+.ip-ticker .ticker {
+  margin: 0;
+  border-top: 3px solid rgba(35, 20, 9, 0.12);
+}
+
+/* Cream courts with clay lines, to break up the clay */
+.ip-cream {
+  --line: rgba(35, 20, 9, 0.16);
+  background: var(--cream);
+  color: var(--ink);
+  border-color: var(--clay);
+}
+.ip-cream .mk,
+.ip-cream .section-title,
+.ip-cream .ip-card h3,
+.ip-cream .ip-stats .serif {
+  color: var(--clay);
+}
+.ip-panel-head .mk {
+  opacity: 0.85;
+}
+
+/* Numbered cards: a big clay or cream 01, 02… above each */
+.ip-cards.is-numbered {
+  counter-reset: card;
+}
+.ip-cards.is-numbered .ip-card {
+  counter-increment: card;
+}
+.ip-cards.is-numbered .ip-card::before {
+  content: counter(card, decimal-leading-zero);
+  display: block;
+  margin-bottom: 14px;
+  font-family: var(--serif);
+  font-size: 56px;
+  line-height: 1;
+  opacity: 0.9;
+}
+.ip-cream .ip-cards.is-numbered .ip-card::before {
+  color: var(--clay);
+}
+/* Cards with a photo drop the court line on top */
+.ip-card.has-img {
+  padding-top: 0;
+  border-top: 0;
+}
+.ip-card-img {
+  aspect-ratio: 4 / 3;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(35, 20, 9, 0.22);
+}
+
+/* Three photos, the middle one dropped for rhythm */
+.ip-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  padding-bottom: 40px;
+}
+.ip-strip-ph {
+  aspect-ratio: 3 / 4;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 14px 30px rgba(35, 20, 9, 0.24);
+}
+.ip-strip-ph:nth-child(2) {
+  transform: translateY(40px);
+}
+
+/* The drawn gift card */
+.gc-stack {
+  position: relative;
+  max-width: 440px;
+  margin: 24px auto;
+  aspect-ratio: 1.586;
+}
+.gc {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  box-shadow: 0 22px 44px rgba(35, 20, 9, 0.35);
+}
+.gc-back {
+  background: var(--cream);
+  transform: rotate(7deg) translate(18px, -10px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 22px;
+}
+.gc-emblem {
+  width: 54px;
+  height: auto;
+}
+.gc-front {
+  background:
+    radial-gradient(ellipse 70% 80% at 50% 40%, rgba(247, 242, 230, 0.16), rgba(247, 242, 230, 0) 70%),
+    var(--clay);
+  color: var(--cream);
+  transform: rotate(-4deg);
+  overflow: hidden;
+  animation: gc-float 6s ease-in-out infinite;
+}
+/* A court drawn on the card: outer lines and the net */
+.gc-court {
+  position: absolute;
+  inset: 16px;
+  border: 3px solid rgba(247, 242, 230, 0.45);
+  border-radius: 6px;
+}
+.gc-court::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  margin-left: -1.5px;
+  background: rgba(247, 242, 230, 0.45);
+}
+.gc-logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 46%;
+  height: auto;
+  transform: translate(-50%, -58%);
+  padding: 10px 14px;
+  background: var(--clay);
+}
+.gc-kind {
+  position: absolute;
+  left: 34px;
+  top: 32px;
+}
+.gc-for {
+  position: absolute;
+  left: 34px;
+  bottom: 30px;
+  opacity: 0.85;
+}
+@keyframes gc-float {
+  0%, 100% { transform: rotate(-4deg) translateY(0); }
+  50% { transform: rotate(-3deg) translateY(-8px); }
+}
+
+/* ---------- Scroll effects (iOS 26 Safari, Chrome): run by the browser off the scroll ---------- */
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Things rise in as they arrive */
+    .ip-card,
+    .ip-strip-ph,
+    .faq details,
+    .ip-list li,
+    .ip-steps li,
+    .ip-stats li,
+    .ip-sponsors li,
+    .ip-contact > div,
+    .gal li,
+    .founders figure,
+    .values > div {
+      animation: rise-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+    /* Courts settle into place */
+    .ip-panel,
+    .ab-court,
+    .ab-sign {
+      animation: court-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+    /* Photos drift a little inside their frames as you pass */
+    .ip-photo img,
+    .ip-card-img img,
+    .ip-strip-ph img,
+    .ab-bleed img,
+    .about-photo img {
+      animation: drift linear both;
+      animation-timeline: view();
+    }
+  }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(36px); }
+}
+@keyframes court-in {
+  from { opacity: 0.4; transform: scale(0.965); }
+}
+@keyframes drift {
+  from { transform: scale(1.14) translateY(-5%); }
+  to { transform: scale(1.14) translateY(5%); }
+}
+/* The dropped middle photo keeps its offset while rising */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ip-strip-ph:nth-child(2) {
+      animation-name: rise-in-low;
+    }
+  }
+}
+@keyframes rise-in-low {
+  from { opacity: 0; transform: translateY(76px); }
+  to { transform: translateY(40px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gc-front {
+    animation: none;
+  }
 }
 
 /* ---------- Gallery ---------- */
@@ -2032,6 +2288,50 @@ button {
 
   .ip-head {
     padding-top: 48px;
+  }
+  .ip-head.has-media {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+    padding: 48px 22px 28px;
+  }
+  .ip-head.has-media .ip-head-copy,
+  .ip-head-media {
+    grid-column: auto;
+  }
+  .ip-head.has-media .page-title {
+    font-size: clamp(52px, 15vw, 72px);
+  }
+  .ip-photo {
+    aspect-ratio: 4 / 3;
+  }
+  .ip-ticker {
+    margin-bottom: 16px;
+  }
+  .ip-cards.is-numbered .ip-card::before {
+    font-size: 44px;
+  }
+  .ip-strip {
+    gap: 8px;
+    padding-bottom: 20px;
+  }
+  .ip-strip-ph {
+    border-radius: 10px;
+  }
+  .ip-strip-ph:nth-child(2) {
+    transform: translateY(20px);
+  }
+  .gc-stack {
+    width: 86%;
+    margin: 8px auto 20px;
+  }
+  .gc-kind {
+    left: 26px;
+    top: 24px;
+  }
+  .gc-for {
+    left: 26px;
+    bottom: 22px;
+    font-size: 9px;
   }
   .page-intro {
     font-size: 16px;

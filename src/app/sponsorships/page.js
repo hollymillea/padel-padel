@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import InfoPage, { Panel } from "@/components/InfoPage";
+import InfoPage, { HeadPhoto, Panel, PhotoStrip } from "@/components/InfoPage";
 import { site } from "@/data/site";
 
 export const metadata = {
@@ -60,8 +60,10 @@ export default function Sponsorships() {
           Get the brochure
         </a>
       }
+      media={<HeadPhoto src="/images/rackets.jpg" alt="A player holding up a Padel Padel racket" pos="center 40%" />}
+      ticker={["11,500+ followers", "2M+ social views", "3,500+ visitors a quarter", "1,800+ subscribers"]}
     >
-      <Panel kicker="Our reach" title="Seen on court and online.">
+      <Panel kicker="Our reach" title="Seen on court and online." tone="cream">
         <ul className="ip-stats">
           {reach.map((r) => (
             <li key={r.label}>
@@ -88,12 +90,23 @@ export default function Sponsorships() {
         </ul>
       </Panel>
 
-      <Panel kicker="Interested?" title="Let's talk." className="ip-center">
+      <Panel kicker="Our community" title="Active, social and back for more.">
+        <PhotoStrip
+          photos={[
+            { src: "/images/group.jpg", alt: "Members together on court in the sun", pos: "center 40%" },
+            { src: "/images/rally.jpg", alt: "A player stretching for a low ball", pos: "center 60%" },
+            { src: "/images/drinks.jpg", alt: "Two members laughing over drinks courtside", pos: "60% 70%" },
+          ]}
+        />
+        <p className="ip-note">Visitors spend an average of 2.2 hours at the club, and most come back regularly.</p>
+      </Panel>
+
+      <Panel kicker="Interested?" title="Let's talk." tone="cream" className="ip-center">
         <p className="page-intro">
           Email <a href={MAIL}>{site.email}</a> and we&apos;ll send you our sponsorship brochure.
         </p>
         <div className="ip-actions">
-          <a href={MAIL} className="btn btn-cream">
+          <a href={MAIL} className="btn btn-clay">
             Email us
           </a>
         </div>

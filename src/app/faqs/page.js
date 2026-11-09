@@ -1,4 +1,4 @@
-import InfoPage, { Faq, Panel } from "@/components/InfoPage";
+import InfoPage, { Faq, HeadPhoto, Panel } from "@/components/InfoPage";
 import { ACADEMY_URL, BOOK_URL, site } from "@/data/site";
 
 export const metadata = {
@@ -89,8 +89,15 @@ export default function Faqs() {
       kicker="FAQs"
       title="Good questions."
       intro="Everything you need to know before your first game. Can't find your answer? Get in touch."
+      actions={
+        <a href={`mailto:${site.email}`} className="btn btn-cream">
+          Email us
+        </a>
+      }
+      media={<HeadPhoto src="/images/clubhouse.jpg" alt="Players heading into the clubhouse and its bar" pos="center 70%" />}
+      ticker={["Open daily, 7am – 11pm", "3 minutes from Eltham station", "Rackets £3.99, free for members", "Walk-ins welcome"]}
     >
-      <Panel>
+      <Panel kicker="Before you play" title="The answers." tone="cream">
         <Faq items={faqs} />
       </Panel>
 
