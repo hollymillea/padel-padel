@@ -16,8 +16,9 @@ export default function About() {
       <Header mode="static" />
 
       <main className="clay about-page page-top">
-        <div aria-hidden="true" className="bgfx patches" style={{ backgroundPosition: "center 30%" }} />
+        <div aria-hidden="true" className="bgfx patches" />
         <div aria-hidden="true" className="bgfx specks" />
+        <div aria-hidden="true" className="flood-fixed" />
 
         {/* The founders lead the About page */}
         <div className="ab-pad" style={{ paddingTop: 32 }}>

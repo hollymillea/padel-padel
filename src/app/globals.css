@@ -209,15 +209,22 @@ button {
   z-index: -1;
   pointer-events: none;
 }
+/* The clay's mottling and specks are pinned to the screen, like the floodlight, so every
+   section and the navbar show exactly the same texture and no seams appear where they meet.
+   (Sections that clip themselves keep these inside their own box.) */
 .patches {
+  position: fixed;
   background-image: url("/textures/patches.png");
   background-size: 1700px 1700px;
-  background-position: center 40%;
+  /* Fixed against the full screen height, so Safari's toolbar resizing doesn't shift it */
+  background-position: center calc((100lvh - 1700px) * 0.4);
   opacity: 0.45;
 }
 .specks {
+  position: fixed;
   background-image: url("/textures/specks.png");
   background-size: 220px 220px;
+  background-position: 0 0;
   opacity: 0.25;
 }
 /* One light for the whole page: it stays put while the clay scrolls under it */
@@ -307,10 +314,11 @@ button {
   background-repeat: no-repeat;
   opacity: var(--e);
 }
+/* Same position as the page's pinned .patches and .specks: the bar sits at the top of the screen */
 .hdr-pat {
   background-image: url("/textures/patches.png");
   background-size: 1700px 1700px;
-  background-position: center 40%;
+  background-position: center calc((100lvh - 1700px) * 0.4);
   opacity: calc(var(--e) * 0.45);
 }
 .hdr-spk {
@@ -908,6 +916,21 @@ button {
 }
 .court-lines > .l { left: 0; }
 .court-lines > .r { right: 0; }
+/* With script: the top and bottom lines draw out from the centre as each edge comes into view;
+   the sides follow the scroll, eased a little so they don't step */
+.court-lines.is-live > .t,
+.court-lines.is-live > .b {
+  transform: scaleX(0);
+  transition: transform 1100ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.court-lines.is-live.top-on > .t,
+.court-lines.is-live.bottom-on > .b {
+  transform: scaleX(1);
+}
+.court-lines.is-live > .l,
+.court-lines.is-live > .r {
+  transition: transform 180ms linear;
+}
 
 .whats-on {
   padding: 104px 80px 96px;

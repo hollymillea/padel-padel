@@ -13,13 +13,18 @@ export function CourtLines({ children }) {
     const el = ref.current;
     if (!el || reduced()) return;
     let frame = 0;
+    el.classList.add("is-live");
+    /*
+     * The top and bottom lines play on their own (a CSS transition) once that edge is well in view,
+     * so they're seen however fast you scroll. The long side lines follow the scroll between them.
+     */
     const update = () => {
       frame = 0;
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      el.style.setProperty("--ln-top", clamp((vh - r.top) / 360));
-      el.style.setProperty("--ln-side", clamp((vh * 0.85 - r.top) / (r.height * 0.55)));
-      el.style.setProperty("--ln-bottom", clamp((vh - r.bottom) / 260));
+      el.classList.toggle("top-on", r.top < vh * 0.8);
+      el.classList.toggle("bottom-on", r.bottom < vh * 0.92);
+      el.style.setProperty("--ln-side", clamp((vh * 0.8 - r.top) / Math.max(1, r.height - vh * 0.1)));
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);

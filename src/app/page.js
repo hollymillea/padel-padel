@@ -37,7 +37,7 @@ export default function Home() {
       <Header mode="hero" />
 
       <main className="clay">
-        <div aria-hidden="true" className="bgfx patches" style={{ backgroundPosition: "center top" }} />
+        <div aria-hidden="true" className="bgfx patches" />
         <div aria-hidden="true" className="bgfx specks" />
         <div aria-hidden="true" className="flood-fixed" />
 
@@ -106,7 +106,7 @@ export default function Home() {
                 <p className="mk">What&apos;s on</p>
                 <Reveal as="h2" id="whats-on-title" className="serif rv section-title">
                   <span>
-                    Every week <em>at the club.</em>
+                    Coming up <em>at the club.</em>
                   </span>
                 </Reveal>
               </div>
@@ -170,8 +170,9 @@ export default function Home() {
                     </span>
                   </Reveal>
                   <p className="lede">
-                    Started in 2024 by two school friends who couldn&apos;t get a court anywhere in London. They put
-                    their savings into Eltham and built a club where everyone feels welcome.
+                    Born in 2024 from a conversation between two school friends who found padel impossible to book
+                    in London. They put their life savings into a club of their own in Eltham, where everyone feels
+                    welcome, on and off the court.
                   </p>
                   <p className="mk" style={{ marginTop: 24, opacity: 0.85 }}>
                     Duy Le · Joe Bearman · Co-founders

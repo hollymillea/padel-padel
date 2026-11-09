@@ -11,7 +11,7 @@ export const metadata = {
 const perks = [
   { title: "The cheapest way to play", body: "20% off your share of every court booking, plus discounted club sessions." },
   { title: "Book before the rush", body: "Members book 14 days ahead. Everyone else gets 7." },
-  { title: "Exclusive events", body: "Members' socials and nights at the club through the year." },
+  { title: "Exclusive events", body: "Americanos, DJ events, tournaments and seasonal leagues for members." },
   { title: "Free cancellations", body: "Change of plans? Cancel up to 24 hours before at no cost." },
   { title: "Free racket rental", body: "Leave yours at home. Rackets are £3.99 a person for everyone else." },
   { title: "Chill, work, drink, eat", body: "15% off food and drink at the bar, on court days and off." },
@@ -36,6 +36,7 @@ export default function Memberships() {
 
       <Panel kicker="What members get" title="Six reasons to join.">
         <Cards items={perks} />
+        <p className="ip-note">Monthly and annual members get every perk. Annual is two months free.</p>
       </Panel>
 
       <Panel kicker="The small print" title="Simple, no catches.">

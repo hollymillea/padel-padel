@@ -12,8 +12,9 @@ export default function InfoPage({ kicker, title, intro, actions, children, sign
       <Header mode="static" />
 
       <main className="clay page-top">
-        <div aria-hidden="true" className="bgfx patches" style={{ backgroundPosition: "center 30%" }} />
+        <div aria-hidden="true" className="bgfx patches" />
         <div aria-hidden="true" className="bgfx specks" />
+        <div aria-hidden="true" className="flood-fixed" />
 
         <div className="ab-pad" style={{ paddingTop: 32 }}>
           <section className="court ab-court ip-head">
