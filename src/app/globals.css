@@ -52,6 +52,17 @@ html {
   color-scheme: only light;
 }
 
+/* Safari fades content under its toolbars into the page colour: while the hero fills the
+   screen that is the photo's shaded bottom edge, then it fades (in time, not space) to clay */
+html,
+body {
+  transition: background-color 400ms ease;
+}
+html.on-hero,
+html.on-hero body {
+  background-color: #613c2f;
+}
+
 body {
   margin: 0;
   background: var(--clay);
@@ -1358,6 +1369,11 @@ button {
   .st-2,
   .st-4 {
     padding: 16px max(16px, var(--safe-right)) 16px max(16px, var(--safe-left));
+  }
+  /* On phones the hero is the full screen, so this section starts right at the bottom edge:
+     its upward shadow would tint the bottom of the photo and slide up as a band */
+  .st-1 {
+    box-shadow: none;
   }
   .ticker {
     margin: -16px -16px 32px;

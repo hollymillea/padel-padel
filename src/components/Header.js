@@ -72,6 +72,9 @@ export default function Header({ mode = "hero" }) {
       const w = start.w + (to.w - start.w) * e;
 
       ride.classList.add("is-placed");
+      // While the hero fills the screen, the page colour matches the photo's bottom edge,
+      // so Safari's toolbar fade blends into the photo instead of turning terracotta
+      root.classList.toggle("on-hero", e < 1);
       if (!cssRide) {
         ride.style.transform = `translate3d(${(to.x - start.x) * e}px, 0, 0) scale(${w / start.w})`;
         const landed = e >= 1;
@@ -159,7 +162,7 @@ export default function Header({ mode = "hero" }) {
       root.style.removeProperty("--fr-s");
       root.style.removeProperty("--hero-browser-color");
       root.style.removeProperty("--phone-screen-height");
-      root.classList.remove("ride-css");
+      root.classList.remove("ride-css", "on-hero");
       for (const v of ["--ride-start", "--ride-end", "--ride-dx", "--ride-k"]) root.style.removeProperty(v);
       if (theme && originalTheme) theme.content = originalTheme;
     };
