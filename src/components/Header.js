@@ -5,7 +5,6 @@ import Menu from "./Menu";
 import HomeLink from "./HomeLink";
 import { BOOK_URL } from "@/data/site";
 
-const HDR = 60; // header height once scrolled
 const LOGO_RATIO = 770.04 / 1516.72;
 const GAP = 28; // room between the logo and the edge of the section pushing it up
 const CREAM = [247, 242, 230];
@@ -32,41 +31,47 @@ export default function Header({ mode = "hero" }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const logoRef = useRef(null);
   const hdrRef = useRef(null);
+  const trackRef = useRef(null);
+  const rideRef = useRef(null);
   const moving = mode === "hero";
 
   useEffect(() => {
     if (!moving) return;
     const root = document.documentElement;
     const logo = logoRef.current;
+    const track = trackRef.current;
+    const ride = rideRef.current;
     const hdr = hdrRef.current;
     const theme = document.querySelector('meta[name="theme-color"]');
     const originalTheme = theme?.content;
+    const next = document.getElementById("st-1");
     let start = null;
+    let to = null;
     let frame = 0;
     let measuredWidth = 0;
     let phone = false;
-    let destination = null;
-    const next = document.getElementById("st-1");
 
-    const logoWidth = () => (window.innerWidth < 900 ? 76 : 84);
-
+    /*
+     * The riding logo is position: sticky inside a track that ends GAP above #st-1.
+     * The browser itself holds it in place and then pushes it up with the section's edge,
+     * so it moves in lockstep with the scroll (no lag on iOS). Script only sets its size.
+     */
     const update = () => {
       frame = 0;
       if (!start) return;
       const y = window.scrollY;
-      const to = destination;
-      const lwEnd = to.w;
       const h0 = start.w * LOGO_RATIO;
       const edge = next ? next.getBoundingClientRect().top : Infinity;
       const contact = start.y + h0 + GAP;
-      const land = to.y + lwEnd * LOGO_RATIO + GAP;
+      const land = to.y + to.w * LOGO_RATIO + GAP;
       const e = Math.min(1, Math.max(0, (contact - edge) / (contact - land)));
       const w = start.w + (to.w - start.w) * e;
-      const top = e <= 0 ? start.y : e >= 1 ? to.y : edge - GAP - w * LOGO_RATIO;
-      const left = start.x + (to.x - start.x) * e;
 
-      logo.style.transform = `translate3d(${left}px, ${top}px, 0) scale(${w / start.w})`;
-      logo.classList.add("is-placed");
+      ride.style.transform = `translate3d(${(to.x - start.x) * e}px, 0, 0) scale(${w / start.w})`;
+      ride.classList.add("is-placed");
+      const landed = e >= 1;
+      ride.classList.toggle("is-landed", landed);
+      logo.classList.toggle("is-landed", landed);
 
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const fr = reduce ? 1 : Math.min(1, Math.max(0, (y - 90) / 300));
@@ -92,15 +97,21 @@ export default function Header({ mode = "hero" }) {
         root.style.removeProperty("--phone-screen-height");
       }
       const slot = document.getElementById("hero-logo-slot");
-      if (!slot) return;
-      // The hero is pinned to the top of the screen while we leave it, so the slot's
-      // place inside the hero is its place on screen (even if the page loads part-way down)
+      if (!slot || !next) return;
+      // The hero is pinned to the top of the screen, so the slot's place inside the hero
+      // is its place on screen (even if the page loads part-way down)
       const r = slot.getBoundingClientRect();
       start = { x: r.left, y: slot.offsetTop, w: r.width };
-      const lwEnd = logoWidth();
-      const safeTop = Math.max(0, hdr.offsetHeight - 64);
-      destination = { x: (window.innerWidth - lwEnd) / 2, y: safeTop + (HDR - lwEnd * LOGO_RATIO) / 2, w: lwEnd };
-      logo.style.width = `${start.w}px`;
+      // Land exactly where the header's own logo sits, so the hand-over is invisible
+      const l = logo.getBoundingClientRect();
+      to = { x: l.left, y: l.top, w: l.width };
+
+      const st1Top = next.getBoundingClientRect().top + window.scrollY;
+      track.style.height = `${st1Top - GAP}px`;
+      ride.style.top = `${start.y}px`;
+      ride.style.marginTop = `${start.y}px`;
+      ride.style.marginLeft = `${start.x}px`;
+      ride.style.width = `${start.w}px`;
       update();
     };
 
@@ -109,7 +120,7 @@ export default function Header({ mode = "hero" }) {
     };
 
     const onResize = () => {
-      // Safari expands/collapses its toolbar during scrolling; retain the logo's origin.
+      // Safari expands/collapses its toolbar during scrolling; keep the logo's origin.
       if (phone && window.innerWidth === measuredWidth) return;
       measure();
     };
@@ -156,6 +167,15 @@ export default function Header({ mode = "hero" }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/logo-cream.svg" alt="" width="1517" height="770" />
       </HomeLink>
+
+      {moving && (
+        <div ref={trackRef} className="logo-track">
+          <HomeLink ref={rideRef} aria-hidden="true" tabIndex={-1} className="logo-ride">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/logo-cream.svg" alt="" width="1517" height="770" />
+          </HomeLink>
+        </div>
+      )}
 
       <header ref={hdrRef} className={`hdr${moving ? "" : " hdr-ready"}`}>
         <div aria-hidden="true" className="hdr-bg" />

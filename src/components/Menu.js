@@ -72,15 +72,15 @@ export default function Menu({ onClose }) {
           <img src="/images/logo-cream.svg" alt="¡Padel Padel!" />
         </HomeLink>
         <ul className="menu-main">
-          {menuMain.map((m) => (
-            <li key={m.label}>
+          {menuMain.map((m, i) => (
+            <li key={m.label} style={{ "--i": i }}>
               <a href={m.href} onClick={onClose} className="menulink">
                 {m.label}
               </a>
             </li>
           ))}
         </ul>
-        <div className="menu-side">
+        <div className="menu-side" style={{ "--i": menuMain.length }}>
           <p className="mk" style={{ opacity: 0.8 }}>
             More from the club
           </p>
@@ -93,7 +93,7 @@ export default function Menu({ onClose }) {
               </li>
             ))}
           </ul>
-          <p className="serif" style={{ fontSize: 30, lineHeight: 1.1 }}>
+          <p className="serif menu-ready" style={{ fontSize: 30, lineHeight: 1.1 }}>
             ¡ Ready to play !
           </p>
         </div>

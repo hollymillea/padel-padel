@@ -398,16 +398,42 @@ button {
   width: 100%;
   height: auto;
 }
+/* On the home page the header's logo waits, hidden, until the riding logo lands on it */
 .hdr-logo.is-moving {
+  visibility: hidden;
+}
+.hdr-logo.is-moving.is-landed {
+  visibility: visible;
+}
+
+/* The riding logo: sticky inside a track that ends just above the next section,
+   so the browser pushes it up with that section's edge at scroll speed */
+.logo-track {
+  position: absolute;
   top: 0;
   left: 0;
-  transform: none;
-  transform-origin: top left;
-  will-change: transform;
-  opacity: 0;
+  width: 100%;
+  z-index: 30;
+  pointer-events: none;
 }
-.hdr-logo.is-moving.is-placed {
+.logo-ride {
+  position: sticky;
+  display: block;
+  opacity: 0;
+  transform-origin: bottom left;
+  will-change: transform;
+  pointer-events: auto;
+}
+.logo-ride img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.logo-ride.is-placed {
   opacity: calc(0.78 + 0.22 * var(--e));
+}
+.logo-ride.is-landed {
+  visibility: hidden;
 }
 
 /* ---------- Menu ---------- */
@@ -420,6 +446,27 @@ button {
   background: var(--clay);
   color: var(--cream);
   overflow: auto;
+}
+.menu {
+  animation: menu-in 260ms ease-out both;
+}
+.menu-main > li,
+.menu-side {
+  animation: menu-item-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(60ms + var(--i, 0) * 45ms);
+}
+@keyframes menu-in {
+  from { opacity: 0; }
+}
+@keyframes menu-item-in {
+  from { opacity: 0; transform: translateY(18px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu,
+  .menu-main > li,
+  .menu-side {
+    animation: none;
+  }
 }
 .menu-frame {
   position: absolute;
@@ -1396,7 +1443,9 @@ button {
     padding: 64px 22px 72px;
   }
   .sign-off h2 {
-    font-size: 64px;
+    /* One line on any phone */
+    font-size: min(64px, 14vw);
+    white-space: nowrap;
     text-shadow: 8px 12px 3px rgba(35, 20, 9, 0.18);
   }
 
@@ -1425,21 +1474,48 @@ button {
     right: max(12px, var(--safe-right));
   }
   .menu-body {
-    padding: calc(140px + var(--safe-top)) max(32px, var(--safe-right)) calc(96px + var(--safe-bottom)) max(32px, var(--safe-left));
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
-    gap: 40px;
-  }
-  .menu-main,
-  .menu-side {
-    grid-column: auto;
-  }
-  .menulink {
-    font-size: 48px;
+    min-height: 100%;
+    padding: calc(124px + var(--safe-top)) max(36px, calc(var(--safe-right) + 24px)) calc(84px + var(--safe-bottom)) max(36px, calc(var(--safe-left) + 24px));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 28px;
   }
   .menu-logo {
-    height: 52px;
-    top: calc(56px + var(--safe-top));
+    height: 44px;
+    top: calc(62px + var(--safe-top));
+  }
+  .menu-main {
+    gap: 2px;
+  }
+  .menulink {
+    font-size: clamp(36px, 11.5vw, 48px);
+    line-height: 1.04;
+  }
+  .menulink:hover,
+  .menulink:focus-visible {
+    transform: none;
+  }
+  /* The extras sit under a short court line, in two tidy columns */
+  .menu-side {
+    gap: 14px;
+    padding-top: 24px;
+    border-top: 3px solid var(--line);
+    width: 100%;
+  }
+  .menu-more {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 16px;
+    font-size: 16px;
+  }
+  .menu-more a {
+    display: block;
+    padding: 4px 0;
+  }
+  .menu-ready {
+    display: none;
   }
   .menu-addr {
     display: none;
