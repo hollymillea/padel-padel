@@ -5,6 +5,10 @@ import Reveal from "@/components/Reveal";
 import { CourtLines, StickyBottom } from "@/components/ScrollBits";
 import { BOOK_URL, offCourt, partners, plans, ticker, week } from "@/data/site";
 
+export const viewport = {
+  themeColor: "#7195a3",
+};
+
 function Ticker() {
   const run = (hidden) => (
     <div className="tick-run" aria-hidden={hidden || undefined}>

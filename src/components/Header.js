@@ -8,6 +8,13 @@ import { BOOK_URL } from "@/data/site";
 const HDR = 60; // header height once scrolled
 const LOGO_RATIO = 770.04 / 1516.72;
 const GAP = 28; // room between the logo and the edge of the section pushing it up
+const SKY = [113, 149, 163];
+const CLAY = [152, 72, 42];
+
+const browserColor = (progress) =>
+  "#" + SKY.map((channel, index) =>
+    Math.round(channel + (CLAY[index] - channel) * progress).toString(16).padStart(2, "0")
+  ).join("");
 
 /*
  * The header is the court's top line. At the top of the home page it breaks only for Menu.
@@ -32,6 +39,8 @@ export default function Header({ mode = "hero" }) {
     const root = document.documentElement;
     const logo = logoRef.current;
     const hdr = hdrRef.current;
+    const theme = document.querySelector('meta[name="theme-color"]');
+    const originalTheme = theme?.content;
     let start = null;
     let frame = 0;
 
@@ -63,6 +72,11 @@ export default function Header({ mode = "hero" }) {
       const fr = reduce ? 1 : Math.min(1, Math.max(0, (y - 90) / 300));
       root.style.setProperty("--e", e.toFixed(4));
       root.style.setProperty("--fr-s", fr.toFixed(4));
+      const color = browserColor(e);
+      root.style.setProperty("--hero-browser-color", color);
+      if (theme && !document.querySelector(".menu") && theme.content !== color) {
+        theme.content = color;
+      }
       hdr.classList.toggle("hdr-ready", e > 0.8);
     };
 
@@ -94,8 +108,19 @@ export default function Header({ mode = "hero" }) {
       if (frame) cancelAnimationFrame(frame);
       root.style.removeProperty("--e");
       root.style.removeProperty("--fr-s");
+      root.style.removeProperty("--hero-browser-color");
+      if (theme && originalTheme) theme.content = originalTheme;
     };
   }, [moving]);
+
+  useEffect(() => {
+    const theme = document.querySelector('meta[name="theme-color"]');
+    if (theme) {
+      theme.content = menuOpen || !moving
+        ? "#98482a"
+        : document.documentElement.style.getPropertyValue("--hero-browser-color") || "#7195a3";
+    }
+  }, [menuOpen, moving]);
 
   const staticVars = moving ? undefined : { "--e": 1 };
 
