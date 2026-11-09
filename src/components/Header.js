@@ -7,14 +7,6 @@ import { BOOK_URL } from "@/data/site";
 
 const LOGO_RATIO = 770.04 / 1516.72;
 const GAP = 28; // room between the logo and the edge of the section pushing it up
-const SKY = [109, 140, 161]; // the top edge of the hero photo, as shaded on screen (older iOS only)
-const CLAY = [152, 72, 42];
-
-const browserColor = (progress) =>
-  "#" + SKY.map((channel, index) =>
-    Math.round(channel + (CLAY[index] - channel) * progress).toString(16).padStart(2, "0")
-  ).join("");
-
 /*
  * The header is the court's top line. At the top of the home page it breaks only for Menu.
  * As you scroll, the big hero logo waits until the next section's top edge reaches it,
@@ -42,8 +34,6 @@ export default function Header({ mode = "hero" }) {
     const track = trackRef.current;
     const ride = rideRef.current;
     const hdr = hdrRef.current;
-    const theme = document.querySelector('meta[name="theme-color"]');
-    const originalTheme = theme?.content;
     const next = document.getElementById("st-1");
     let start = null;
     let to = null;
@@ -72,9 +62,6 @@ export default function Header({ mode = "hero" }) {
       const w = start.w + (to.w - start.w) * e;
 
       ride.classList.add("is-placed");
-      // While the hero fills the screen, Safari's bars take the photo's colours: sky at the top
-      // (the page colour), the shaded bottom edge at the bottom (.edge-bottom). See globals.css.
-      root.classList.toggle("on-hero", e < 1);
       if (!cssRide) {
         ride.style.transform = `translate3d(${(to.x - start.x) * e}px, 0, 0) scale(${w / start.w})`;
         const landed = e >= 1;
@@ -86,12 +73,6 @@ export default function Header({ mode = "hero" }) {
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const fr = reduce ? 1 : Math.min(1, Math.max(0, (y - 90) / 300));
       root.style.setProperty("--fr-s", fr.toFixed(4));
-      // Older iOS reads this for its top bar; iOS 26 tints from the page content instead
-      const color = browserColor(e);
-      root.style.setProperty("--hero-browser-color", color);
-      if (theme && !document.querySelector(".menu") && theme.content !== color) {
-        theme.content = color;
-      }
       hdr.classList.toggle("hdr-ready", e > 0.8);
     };
 
@@ -160,22 +141,11 @@ export default function Header({ mode = "hero" }) {
       if (frame) cancelAnimationFrame(frame);
       root.style.removeProperty("--e");
       root.style.removeProperty("--fr-s");
-      root.style.removeProperty("--hero-browser-color");
       root.style.removeProperty("--phone-screen-height");
-      root.classList.remove("ride-css", "on-hero");
+      root.classList.remove("ride-css");
       for (const v of ["--ride-start", "--ride-end", "--ride-dx", "--ride-k"]) root.style.removeProperty(v);
-      if (theme && originalTheme) theme.content = originalTheme;
     };
   }, [moving]);
-
-  useEffect(() => {
-    const theme = document.querySelector('meta[name="theme-color"]');
-    if (theme) {
-      theme.content = menuOpen || !moving
-        ? "#98482a"
-        : document.documentElement.style.getPropertyValue("--hero-browser-color") || "#6d8ca1";
-    }
-  }, [menuOpen, moving]);
 
   const staticVars = moving ? undefined : { "--e": 1 };
 
@@ -189,8 +159,6 @@ export default function Header({ mode = "hero" }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/logo-cream.svg" alt="" width="1517" height="770" />
       </HomeLink>
-
-      {moving && <div aria-hidden="true" className="edge-bottom" />}
 
       {moving && (
         <div ref={trackRef} className="logo-track">

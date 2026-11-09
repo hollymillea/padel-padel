@@ -7,10 +7,6 @@ import Plans from "@/components/Plans";
 import Ticker from "@/components/Ticker";
 import { BOOK_URL, offCourt, partners, week } from "@/data/site";
 
-export const viewport = {
-  themeColor: "#6d8ca1",
-};
-
 
 export default function Home() {
   return (
