@@ -43,6 +43,7 @@
 
 html {
   background: var(--clay);
+  color-scheme: only light;
 }
 
 body {
@@ -278,7 +279,7 @@ button {
   height: calc(24px + 36px * var(--e));
 }
 .hdr-bg {
-  background: linear-gradient(rgba(35, 20, 9, 0.07), rgba(35, 20, 9, 0.07)), var(--clay);
+  background: var(--clay);
   opacity: var(--e);
 }
 .hdr-spk {
