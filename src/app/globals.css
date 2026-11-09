@@ -1246,8 +1246,8 @@ button {
 
   .hero {
     --h: max(600px, 100vh);
-    /* Carry the photo past Safari's safe areas before the ticker begins. */
-    --h: max(600px, calc(100lvh + var(--safe-top) + var(--safe-bottom)));
+    /* Use the phone's full display height when Safari's viewport is shorter. */
+    --h: max(600px, 100lvh, var(--phone-screen-height, 0px));
     height: var(--h);
     /* Leave breathing room below the branded tape in the portrait crop. */
     padding: max(calc(0.24 * var(--h) + 24px), calc(var(--safe-top) + 80px)) max(24px, var(--safe-right)) calc(40px + var(--safe-bottom)) max(24px, var(--safe-left));

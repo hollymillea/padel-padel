@@ -81,6 +81,15 @@ export default function Header({ mode = "hero" }) {
     };
 
     const measure = () => {
+      const { width, height } = window.screen;
+      const phone = window.matchMedia("(pointer: coarse)").matches && Math.min(width, height) <= 600;
+      if (phone) {
+        const portrait = window.matchMedia("(orientation: portrait)").matches;
+        const screenHeight = portrait ? Math.max(width, height) : Math.min(width, height);
+        root.style.setProperty("--phone-screen-height", `${Math.max(screenHeight, window.innerHeight)}px`);
+      } else {
+        root.style.removeProperty("--phone-screen-height");
+      }
       const slot = document.getElementById("hero-logo-slot");
       if (!slot) return;
       // The hero is pinned to the top of the screen while we leave it, so the slot's
@@ -109,6 +118,7 @@ export default function Header({ mode = "hero" }) {
       root.style.removeProperty("--e");
       root.style.removeProperty("--fr-s");
       root.style.removeProperty("--hero-browser-color");
+      root.style.removeProperty("--phone-screen-height");
       if (theme && originalTheme) theme.content = originalTheme;
     };
   }, [moving]);
