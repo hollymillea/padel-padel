@@ -45,10 +45,40 @@
   box-sizing: border-box;
 }
 
-/* Clay everywhere, including the colour Safari gives its own bars */
 html {
   background: var(--clay);
   color-scheme: only light;
+}
+
+/* iOS 26 Safari colours its status bar and toolbar from the page content beneath them, so on
+   phones a clay band sits under each. The bottom band is the toolbar's height on an iPhone 15
+   (56px above the home-indicator inset); content gets that much extra room at the page's end. */
+.bar-top,
+.bar-bottom {
+  display: none;
+}
+@media (max-width: 900px) and (pointer: coarse) {
+  :root {
+    --bar-bottom: calc(var(--safe-bottom) + 56px);
+  }
+  .bar-top,
+  .bar-bottom {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 21;
+    background: var(--clay);
+    pointer-events: none;
+  }
+  .bar-top {
+    top: 0;
+    height: var(--safe-top);
+  }
+  .bar-bottom {
+    bottom: 0;
+    height: var(--bar-bottom);
+  }
 }
 
 body {
@@ -2277,7 +2307,7 @@ button {
   }
 
   .footer {
-    padding: 40px max(22px, var(--safe-right)) calc(32px + var(--safe-bottom)) max(22px, var(--safe-left));
+    padding: 40px max(22px, var(--safe-right)) calc(32px + var(--bar-bottom, var(--safe-bottom))) max(22px, var(--safe-left));
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .footer-brand,
