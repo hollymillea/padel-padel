@@ -27,7 +27,7 @@ export default function Menu({ onClose }) {
       <div aria-hidden="true" className="flood-hi" />
       <div aria-hidden="true" className="menu-frame" />
 
-      <div className="menu-line" style={{ top: 24 }}>
+      <div className="menu-line" style={{ top: "calc(24px + var(--safe-top))" }}>
         <span className="nl-seg short" />
         <button ref={closeRef} type="button" className="navlink menu-close" onClick={onClose}>
           Close
@@ -49,7 +49,7 @@ export default function Menu({ onClose }) {
         <span className="nl-seg short" />
       </div>
 
-      <div className="menu-line" style={{ bottom: 24 }}>
+      <div className="menu-line" style={{ bottom: "calc(24px + var(--safe-bottom))" }}>
         <span className="nl-seg short" />
         <p className="mk menu-addr" style={{ padding: "0 13px", whiteSpace: "nowrap" }}>
           {site.addressShort}

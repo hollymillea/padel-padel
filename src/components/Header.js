@@ -42,7 +42,8 @@ export default function Header({ mode = "hero" }) {
       if (!start) return;
       const y = window.scrollY;
       const lwEnd = logoWidth();
-      const to = { x: (window.innerWidth - lwEnd) / 2, y: (HDR - lwEnd * LOGO_RATIO) / 2, w: lwEnd };
+      const safeTop = Math.max(0, hdr.offsetHeight - 64);
+      const to = { x: (window.innerWidth - lwEnd) / 2, y: safeTop + (HDR - lwEnd * LOGO_RATIO) / 2, w: lwEnd };
       const h0 = start.w * LOGO_RATIO;
       const next = document.getElementById("st-1");
       const edge = next ? next.getBoundingClientRect().top : Infinity;

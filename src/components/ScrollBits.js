@@ -53,7 +53,8 @@ export function StickyBottom({ className, id, children }) {
     const el = ref.current;
     if (!el) return;
     const measure = () => {
-      el.style.setProperty("--st-top", `${Math.min(60, window.innerHeight - el.offsetHeight)}px`);
+      const headerHeight = document.querySelector(".hdr")?.offsetHeight || 64;
+      el.style.setProperty("--st-top", `${Math.min(headerHeight - 4, window.innerHeight - el.offsetHeight)}px`);
     };
     measure();
     window.addEventListener("resize", measure);
