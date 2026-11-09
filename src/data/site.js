@@ -97,16 +97,18 @@ export const plans = [
   },
 ];
 
-// What's on: the weekly sessions, then dated events (event: true, shown under "Coming up").
+// What's on: the weekly sessions, then dated events (event: true, shown under "One-off events").
+// Photos are the live site's own, in /images/whats-on.
 // Update the dated events as they pass.
 export const week = [
   {
-    day: "Mon",
-    when: "& Fri",
+    day: "Mon & Fri",
+    when: "",
     name: "Coaching, all abilities",
     desc: "A full programme of sessions for every level, with coaches who've played internationally and rank in the UK top 100.",
-    img: "/images/glass.jpg",
-    alt: "A player hitting the ball off the glass",
+    img: "/images/whats-on/coaching.jpg",
+    alt: "A player in white trainers holding a Padel Padel racket on court",
+    pos: "center 40%",
     cta: "Book",
     href: ACADEMY_URL,
   },
@@ -115,8 +117,9 @@ export const week = [
     when: "3.30 – 5pm",
     name: "Social Americano",
     desc: "Meet new people in a fast, rotating game format with live leaderboards. Improvers and intermediates alternate weeks.",
-    img: "/images/rally.jpg",
-    alt: "A player stretching for a low ball",
+    img: "/images/whats-on/americano.jpg",
+    alt: "Players holding up Padel Padel rackets",
+    pos: "center 35%",
     cta: "Grab a spot",
     href: ACTIVITIES_URL,
   },
@@ -125,8 +128,9 @@ export const week = [
     when: "4 – 5pm",
     name: "Kids' club, ages 8 – 11",
     desc: "Fun, friendly group coaching after school. Six children per group, and beginners are welcome.",
-    img: "/images/rackets.jpg",
-    alt: "A player holding up a Padel Padel racket",
+    img: "/images/whats-on/kids.jpg",
+    alt: "A coach playing padel with a group of children",
+    pos: "62% center",
     cta: "Book",
     href: "https://app.playtomic.com/lesson_class/331b40e0-db8c-4034-997b-d8c35a1063d4",
   },
@@ -135,11 +139,11 @@ export const week = [
     when: "28 Nov",
     name: "Christmas at the club",
     desc: "Food, mulled wine and festive activities, plus 50% off courts all day and evening. Free entry, and everyone's welcome, playing or not.",
-    img: "/images/drinks.jpg",
-    alt: "Two members laughing over drinks",
+    img: "/images/whats-on/christmas.jpg",
+    alt: "Duy and Joe in Santa hats, making a heart with their hands",
     cta: "Join the WhatsApp",
     href: WHATSAPP_URL,
-    pos: "60% 70%",
+    pos: "center 30%",
     event: true,
   },
   {
@@ -147,11 +151,11 @@ export const week = [
     when: "5 Dec",
     name: "Circuits for padel fitness",
     desc: "Full-body HIIT and strength with PT Georgia, to build power on court. All fitness levels, equipment provided.",
-    img: "/images/circuits.jpg",
-    alt: "A circuits class working out on mats on court",
+    img: "/images/whats-on/circuits.jpg",
+    alt: "Dumbbells and weight plates on the clay court",
     cta: "Let's get fit",
     href: "https://playtomic.com/activities/public-classes/49994097-a5ac-407e-aabb-4189f20e96ef",
-    pos: "center 65%",
+    pos: "center 45%",
     event: true,
   },
 ];

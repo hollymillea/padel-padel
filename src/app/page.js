@@ -129,7 +129,7 @@ export default function Home() {
                                 <span className="wo-tag">
                                   <span className="mk wo-every">Every</span>
                                   <span className="serif">{w.day}</span>
-                                  <span className="mk">{w.when}</span>
+                                  {w.when && <span className="mk">{w.when}</span>}
                                 </span>
                               )}
                             </span>
