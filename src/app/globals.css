@@ -52,15 +52,30 @@ html {
   color-scheme: only light;
 }
 
-/* Safari fades content under its toolbars into the page colour: while the hero fills the
-   screen that is the photo's shaded bottom edge, then it fades (in time, not space) to clay */
+/* iOS 26 Safari tints its top bar from the page colour and its bottom bar from a strip fixed to
+   the bottom of the screen, when there is one. While the hero fills the screen: the page colour
+   is the sky at the photo's top edge, and .edge-bottom is the photo's shaded bottom edge. Once the
+   logo lands both give way to clay, fading in time rather than across the screen. */
 html,
 body {
   transition: background-color 400ms ease;
 }
 html.on-hero,
 html.on-hero body {
-  background-color: #613c2f;
+  background-color: #6d8ca1;
+}
+.edge-bottom {
+  display: none;
+}
+html.on-hero .edge-bottom {
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 25;
+  height: 2px;
+  background: #613c2f;
 }
 
 body {

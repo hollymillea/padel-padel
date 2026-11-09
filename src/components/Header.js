@@ -72,8 +72,8 @@ export default function Header({ mode = "hero" }) {
       const w = start.w + (to.w - start.w) * e;
 
       ride.classList.add("is-placed");
-      // While the hero fills the screen, the page colour matches the photo's bottom edge,
-      // so Safari's toolbar fade blends into the photo instead of turning terracotta
+      // While the hero fills the screen, Safari's bars take the photo's colours: sky at the top
+      // (the page colour), the shaded bottom edge at the bottom (.edge-bottom). See globals.css.
       root.classList.toggle("on-hero", e < 1);
       if (!cssRide) {
         ride.style.transform = `translate3d(${(to.x - start.x) * e}px, 0, 0) scale(${w / start.w})`;
@@ -189,6 +189,8 @@ export default function Header({ mode = "hero" }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/logo-cream.svg" alt="" width="1517" height="770" />
       </HomeLink>
+
+      {moving && <div aria-hidden="true" className="edge-bottom" />}
 
       {moving && (
         <div ref={trackRef} className="logo-track">
