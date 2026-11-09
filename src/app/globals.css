@@ -958,65 +958,150 @@ button {
 .whats-on .section-title {
   color: var(--clay);
 }
-.wlist {
-  border-top: 1px solid rgba(35, 20, 9, 0.2);
-}
-.wlist li {
-  display: grid;
-  grid-template-columns: 150px minmax(0, 1fr) 132px 150px;
-  gap: 32px;
-  align-items: center;
-  padding: 22px 0;
-  border-bottom: 1px solid rgba(35, 20, 9, 0.2);
-}
-.wday .serif {
-  display: block;
-  font-size: 52px;
-  line-height: 0.95;
-}
-.wday small {
-  display: block;
-  margin-top: 6px;
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-weight: 900;
-  opacity: 0.85;
-}
-.wname {
-  font-weight: 900;
-  font-size: 21px;
-  letter-spacing: -0.015em;
-}
-.wdesc {
-  margin-top: 6px;
-  font-size: 15px;
-  line-height: 1.45;
-  opacity: 0.85;
-  max-width: 460px;
-}
-.wimg {
-  height: 88px;
-  border-radius: 10px;
-  overflow: hidden;
-}
 .ph {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.wbtn {
-  justify-self: end;
-  min-height: 44px;
-  padding: 0 18px;
-  font-size: 12px;
-  border-color: var(--ink);
+
+/* What's on: photo cards. Weekly sessions in threes, dated events in a wider pair. */
+.wo-group + .wo-group {
+  margin-top: 64px;
+}
+.wo-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 20px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid rgba(35, 20, 9, 0.16);
+}
+.wo-label h3 {
+  font-size: 36px;
+  line-height: 1;
+  color: var(--clay);
+}
+.whats-on .wo-label .mk {
+  color: var(--ink);
+  opacity: 0.65;
+}
+/* One-off events: a clay calendar tag, so they never read as weekly */
+.wo-tag.is-date {
+  align-items: center;
+  min-width: 64px;
+  padding: 8px 12px 9px;
+  background: var(--clay);
+  color: var(--cream);
+}
+.wo-tag.is-date .mk {
+  margin: 0;
+  color: var(--cream);
+}
+.wo-tag.is-date .serif {
+  font-size: 40px;
+  line-height: 0.95;
+  margin: 2px 0;
+}
+.wo-every {
+  margin: 0 0 2px !important;
+  opacity: 0.7;
+}
+.wo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.wo-grid.is-events {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.wo-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.wo-img {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 14px 30px rgba(35, 20, 9, 0.18);
+}
+.is-events .wo-img {
+  aspect-ratio: 16 / 10;
+}
+.wo-img img {
+  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.wo-card:hover .wo-img img,
+.wo-card:focus-visible .wo-img img {
+  transform: scale(1.04);
+}
+/* The day, as a cream tag on the photo */
+.wo-tag {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px 14px 9px;
+  border-radius: 10px;
+  background: var(--cream);
+  color: var(--clay);
+}
+.wo-tag .serif {
+  font-size: 34px;
+  line-height: 0.9;
+}
+.wo-tag .mk {
+  margin-top: 4px;
+  font-size: 10px;
   color: var(--ink);
 }
-.wbtn:hover {
-  background: var(--ink);
-  color: var(--cream);
+.wo-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px 2px 0;
+}
+.wname {
+  display: block;
+  font-weight: 900;
+  font-size: 21px;
+  letter-spacing: -0.015em;
+}
+.wdesc {
+  display: block;
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.45;
+  opacity: 0.85;
+}
+/* One quiet link style for every card, pinned to the bottom so they line up */
+.whats-on .wo-cta {
+  margin-top: auto;
+  padding-top: 16px;
+  color: var(--clay);
+  font-size: 12px;
+}
+.wo-cta span {
+  display: inline-block;
+  transition: transform 220ms ease;
+}
+.wo-card:hover .wo-cta span {
+  transform: translateX(4px);
+}
+.wo-card:focus-visible {
+  outline: 3px solid var(--clay);
+  outline-offset: 6px;
+  border-radius: 16px;
 }
 .whats-note {
   margin-top: 32px;
@@ -2012,9 +2097,8 @@ button {
 /* ---------- Smaller laptops ---------- */
 
 @media (max-width: 1180px) {
-  .wlist li {
-    grid-template-columns: 120px minmax(0, 1fr) 110px 140px;
-    gap: 24px;
+  .wo-grid {
+    gap: 20px;
   }
   .menulink {
     font-size: 68px;
@@ -2131,24 +2215,50 @@ button {
   .whats-on {
     padding: 64px 20px 56px;
   }
-  .wlist li {
-    grid-template-columns: 76px minmax(0, 1fr);
-    gap: 10px 18px;
-    align-items: start;
+  /* Weekly cards become a row you swipe through, snapping card to card */
+  .wo-grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;
+    gap: 14px;
+    margin: 0 -20px;
+    padding: 0 20px 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 20px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
-  .wday .serif {
-    font-size: 38px;
-  }
-  .wday small {
-    font-size: 10px;
-  }
-  .wimg {
+  .wo-grid::-webkit-scrollbar {
     display: none;
   }
-  .wbtn {
-    grid-column: 2;
-    justify-self: start;
-    min-height: 40px;
+  .wo-grid > li {
+    scroll-snap-align: start;
+  }
+  /* Dated events stack instead */
+  .wo-grid.is-events {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+  .wo-group + .wo-group {
+    margin-top: 44px;
+  }
+  .wo-tag .serif {
+    font-size: 28px;
+  }
+  .wo-tag.is-date .serif {
+    font-size: 34px;
+  }
+  .wo-label h3 {
+    font-size: 30px;
+  }
+  .wname {
+    font-size: 19px;
   }
 
   .off-court {

@@ -84,33 +84,69 @@ export default function Home() {
           <CourtLines>
             <section id="whats-on" className="whats-on" aria-labelledby="whats-on-title">
               <div className="section-head" style={{ marginBottom: 44 }}>
-                <p className="mk">What&apos;s on</p>
+                <p className="mk">Sessions &amp; events</p>
                 <Reveal as="h2" id="whats-on-title" className="serif rv section-title">
                   <span>
-                    Coming up <em>at the club.</em>
+                    What&apos;s on <em>at the club.</em>
                   </span>
                 </Reveal>
               </div>
-              <Reveal as="ul" className="wlist stg">
-                {week.map((w) => (
-                  <li key={w.name}>
-                    <div className="wday">
-                      <span className="serif">{w.day}</span>
-                      <small>{w.when}</small>
+              {[
+                {
+                  label: "Every week",
+                  note: "Regular sessions, same time every week",
+                  items: week.filter((w) => !w.event),
+                  events: false,
+                },
+                {
+                  label: "One-off events",
+                  note: "Dates for the diary",
+                  items: week.filter((w) => w.event),
+                  events: true,
+                },
+              ].map((g) =>
+                g.items.length ? (
+                  <div key={g.label} className={`wo-group${g.events ? " is-events" : ""}`}>
+                    <div className="wo-label">
+                      <h3 className="serif">{g.label}</h3>
+                      <p className="mk">{g.note}</p>
                     </div>
-                    <div>
-                      <p className="wname">{w.name}</p>
-                      <p className="wdesc">{w.desc}</p>
-                    </div>
-                    <div className="wimg">
-                      <img className="ph" src={w.img} alt={w.alt} loading="lazy" />
-                    </div>
-                    <a href={w.href} className="btn wbtn">
-                      {w.cta}
-                    </a>
-                  </li>
-                ))}
-              </Reveal>
+                    <Reveal as="ul" className={`wo-grid stg${g.events ? " is-events" : ""}`}>
+                      {g.items.map((w) => (
+                        <li key={w.name}>
+                          <a href={w.href} className="wo-card">
+                            <span className="wo-img">
+                              <img className="ph" src={w.img} alt={w.alt} style={{ objectPosition: w.pos || "center" }} loading="lazy" />
+                              {g.events ? (
+                                // A calendar tag: day, date, month
+                                <span className="wo-tag is-date">
+                                  <span className="mk">{w.day}</span>
+                                  <span className="serif">{w.when.split(" ")[0]}</span>
+                                  <span className="mk">{w.when.split(" ")[1]}</span>
+                                </span>
+                              ) : (
+                                // A weekly tag: Every / Mon / & Fri
+                                <span className="wo-tag">
+                                  <span className="mk wo-every">Every</span>
+                                  <span className="serif">{w.day}</span>
+                                  <span className="mk">{w.when}</span>
+                                </span>
+                              )}
+                            </span>
+                            <span className="wo-body">
+                              <span className="wname">{w.name}</span>
+                              <span className="wdesc">{w.desc}</span>
+                              <span className="mk wo-cta">
+                                {w.cta} <span aria-hidden="true">→</span>
+                              </span>
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </Reveal>
+                  </div>
+                ) : null
+              )}
               <p className="whats-note">
                 Want to host your own?{" "}
                 <a href="/corporate-hire/" className="link-serif">

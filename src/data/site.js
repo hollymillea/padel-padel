@@ -97,7 +97,8 @@ export const plans = [
   },
 ];
 
-// What's on: the weekly sessions, then dated events. Update the dates as events pass.
+// What's on: the weekly sessions, then dated events (event: true, shown under "Coming up").
+// Update the dated events as they pass.
 export const week = [
   {
     day: "Mon",
@@ -138,6 +139,8 @@ export const week = [
     alt: "Two members laughing over drinks",
     cta: "Join the WhatsApp",
     href: WHATSAPP_URL,
+    pos: "60% 70%",
+    event: true,
   },
   {
     day: "Sat",
@@ -148,6 +151,8 @@ export const week = [
     alt: "A circuits class working out on mats on court",
     cta: "Let's get fit",
     href: "https://playtomic.com/activities/public-classes/49994097-a5ac-407e-aabb-4189f20e96ef",
+    pos: "center 65%",
+    event: true,
   },
 ];
 
